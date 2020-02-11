@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>机票管理系统</title>
+    <link rel="stylesheet" href="../css/plugins/bootstrap.min.css">
+    <script src="../js/jquery.js"></script>
+    <script src="../js/plugins/bootstrap.min.js"></script>
+</head>
+<body style="background-color: #f1f1f1">
+<nav class="nav navbar-inverse">
+    <div class="container-fluid">
+        <!-- Header -->
+        <div class="navbar-header">
+            <a class="navbar-brand" href="{% url 'booksystem:index' %}">高铁购票系统</a>
+        </div>
+        <!-- Items -->
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                <a href="{% url 'booksystem:result' %}">
+                    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>&nbsp; 购票
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'booksystem:user_info' %}">
+                    <span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp; 个人中心
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'booksystem:login_user' %}">
+           f         <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>&nbsp; 登录
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'booksystem:logout_user' %}">
+                    <span class="glyphicon glyphicon-off" aria-hidden="true"></span>&nbsp; 退出
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div class="container-fluid" style="margin-top: 20px">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <center>
+                        <h1>登录账号</h1><br>
+                    </center>
+                    <div class="form-horizontal" role="form">
+                        <div class="form-group">
+                            <label class="control-label col-sm-6" for="username">
+                                Username:
+                            </label>
+                            <div class="col-sm-6">
+                                <input id="username" maxlength="10" name="username" type="text">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-6" for="password">
+                                Password:
+                            </label>
+                            <div class="col-sm-6">
+                                <input id="password" maxlength="10" name="password" type="password">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div align="center">
+                                <button onClick="loginSubmit()" class="btn btn-success">Submit</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-footer" align="center">
+                    Don't have an account? <a href="{% url 'booksystem:register' %}">Click here</a> to register.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../js/loginJS.js"></script>
+</body>
+</html>

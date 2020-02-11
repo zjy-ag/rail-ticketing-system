@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>机票管理系统</title>
+    <link rel="stylesheet" href="../css/plugins/bootstrap.min.css">
+    <script src="../js/jquery.js"></script>
+    <script src="../js/plugins/bootstrap.min.js"></script>
+</head>
+<body style="background-color: #f1f1f1">
+<nav class="nav navbar-inverse">
+    <div class="container-fluid">
+        <!-- Header -->
+        <div class="navbar-header">
+            <a class="navbar-brand" href="{% url 'booksystem:index' %}">高铁购票系统</a>
+        </div>
+        <!-- Items -->
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                <a href="{% url 'booksystem:result' %}">
+                    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>&nbsp; 购票
+                </a>
+            </li>
+            <li id="welcomeText">
+                <a href="#">欢迎您 <span id="user"></span> 先生/女士</a>
+            </li>
+            <li id="userBtn">
+                <a href="{% url 'booksystem:user_info' %}">
+                    <span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp; 个人中心
+                </a>
+            </li>
+            <li id="logoutBtn">
+                <a href="" onclick="returnIndex()">
+                    <span class="glyphicon glyphicon-off" aria-hidden="true"></span>&nbsp; 退出
+                </a>
+            </li>
+            <li id="loginBtn">
+                <a href="login2.html">
+                    <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>&nbsp; 登录
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<script>
+
+    function confirm_info() {
+        var remain_seats = document.getElementById('remain_seats').innerHTML;
+        document.getElementById('book_btns').style.display = "none";
+        if (remain_seats > 0) {
+            document.getElementById('book_success').style.display = "block";
+        } else {
+            document.getElementById('book_failure').style.display = "block";
+        }
+        window.location.href = "pay.html";
+    }
+
+    // ajax异步刷新页面
+    function PostData() {
+        $.ajax({
+            type: "POST",
+            url: "",
+            data: "",
+            success: function () {
+
+            }
+        });
+        return false; // 必须这一句，不然还会刷新页面
+    }
+
+</script>
+
+<div class="container-fluid" style="margin-top: 20px">
+    <div class="alert" style="background-color: white;overflow: hidden"> <!--超出部分也是白色底-->
+        <h1>尊敬的旅客</h1>
+        <div id="info_body" style="margin-left: 50px;margin-right: 50px">
+            <p>
+                您选择了 <strong style="font-size: large" id="carnum-info"></strong> 次高铁，
+                该车次还有余票
+                <strong id="remain_seats"
+                        style="font-size: xx-large;color: #ff6600;font-style: italic"></strong>
+                张。
+            </p>
+            <table class="table table-striped table-bordered">
+                <thead>
+                <tr>
+                    <th style="text-align: center">车次</th>
+                    <th style="text-align: center">起始站点</th>
+                    <th style="text-align: center">目的站点</th>
+                    <th style="text-align: center">发车时间</th>
+                    <th style="text-align: center">到达时间</th>
+                    <th style="text-align: center">价格</th>
+                </tr>
+                </thead>
+                <tbody style="text-align: center">
+                <tr id="booking-info">
+
+                </tr>
+                </tbody>
+            </table>
+
+            <div id="book_btns" align="right">
+                <!--div内容右对齐-->
+                <form onsubmit="return PostData()" method="post" style="display: inline">
+                    <input class="btn btn-primary" style="width: 80px" value="确认" type="submit"
+                           onclick="pay()">
+                </form>
+                <a href="" class="btn btn-danger" style="width: 80px" onclick="history.back();">返回</a>
+            </div>
+        </div>
+    </div>
+    <div id="order-info" class="alert" style="background-color: white;overflow: hidden"; hidden="hidden"> <!--超出部分也是白色底-->
+        <div id="" style="margin-left: 50px;margin-right: 50px">
+            <p style="color: #ffb400;font-size: large;">
+                请确认以下信息后购买！
+            </p>
+            <form role="form">
+                <div class="row">
+                    <div class="col-lg-4">
+                        <label for="">姓名</label>
+                        <input id="trueName" type="text" class="form-control" placeholder="">
+                    </div>
+                    <div class="col-lg-4">
+                        <label for="">电话</label>
+                        <input id="phone" type="text" class="form-control" placeholder="">
+                    </div>
+                    <div class="col-lg-4">
+                        <label for="">身份证号</label>
+                        <input id="identity" type="text" class="form-control" placeholder="">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4">
+                        <label for="">车次</label>
+                        <input id="carNum" type="text" class="form-control" placeholder="">
+                    </div>
+                    <div class="col-lg-4">
+                        <label for="">始发地</label>
+                        <input id="orginLocation" type="text" class="form-control" placeholder="">
+                    </div>
+                    <div class="col-lg-4">
+                        <label for="">目的地</label>
+                        <input id="destinationLocation" type="text" class="form-control" placeholder="">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4">
+                        <label for="">出发时间</label>
+                        <input id="startTime" type="text" class="form-control" placeholder="">
+                    </div>
+                    <div class="col-lg-4">
+                        <label for="">到达时间</label>
+                        <input id="reachTime" type="text" class="form-control" placeholder="">
+                    </div>
+                    <div class="col-lg-4">
+                        <label for="">价格</label>
+                        <input id="ticketPrice" type="text" class="form-control" placeholder="">
+                    </div>
+                </div><br/>
+            </form>
+            <div id="book_success" style="display: none">
+                <p style="color: green;font-size: large;font-weight: bold">
+                    您已成功订购了此次高铁，请保管好车次信息，祝您旅途愉快！
+                </p>
+            </div>
+
+            <div id="book_failure" style="display: none">
+                <p style="color: red;font-size: large;font-weight: bold">
+                    该车次已无余票，请选择其他车次，祝您旅途愉快！
+                </p>
+            </div>
+
+            <div id="pay_btns" align="right">
+                <!--div内容右对齐-->
+                <form onsubmit="return PostData()" method="post" style="display: inline">
+                    <input class="btn btn-primary" style="width: 80px" value="购买" type="submit"
+                           onclick="confirm_info()">
+                </form>
+                <a href="" class="btn btn-danger" style="width: 80px" onclick="history.back();">取消</a>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var curTicket = localStorage.getItem("curTicket")
+    curTicket = JSON.parse(curTicket);
+    if (curTicket != ''){
+        $('#carnum-info').text(curTicket.carNum);
+        $('#remain_seats').text(curTicket.ticketNum);
+        var showContent = '';
+        showContent += '<td>' + curTicket.carNum + '</td>\n' +
+                '                    <td>' + curTicket.orginLocation + '</td>\n' +
+                '                    <td>' + curTicket.destinationLocation + '</td>\n' +
+                '                    <td>' + curTicket.startTime.substring(11, 18) + '</td>\n' +
+                '                    <td>' + curTicket.reachTime.substring(11, 18) + '</td>\n' +
+                '                    <td>￥' + curTicket.ticketPrice + '</td>';
+        console.log(showContent);
+        $("#booking-info").text('');
+        $("#booking-info").append(showContent);
+    }else {
+
+    }
+</script>
+<script src="../js/plugins/bootstrap.min.js"></script>
+<script src="../js/plugins/slick.min.js"></script>
+<script src="../js/plugins/jquery.form.js"></script>
+<script src="../js/plugins/jquery.validate.min.js"></script>
+<script src="../js/custom.js"></script>
+<script language="JavaScript">
+    fillerIn()
+</script>
+</body>
+</html>

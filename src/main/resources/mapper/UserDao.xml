@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--对应接口，写入sql语句-->
+
+<mapper namespace="com.code.rts.dao.UserDao">
+
+
+    <update id="updateUserRegisterInfo" parameterType="com.code.rts.entity.User">
+        UPDATE `user` set
+        <if test="password != null and password != ''">
+            password = #{password}
+        </if>
+        <if test="personId != 0">
+            , person_id = #{personId}
+        </if>
+        where username = #{username}
+
+    </update>
+
+
+    <select id="getUsersCount" resultType="Integer">
+        SELECT COUNT(1)
+        FROM `user`
+    </select>
+
+    <resultMap id="personInfo" type="com.code.rts.entity.User" >
+        <id column="person_id" property="personId"/>
+        <result column="person_id" property="personId"/>
+        <result column="username" property="username" />
+        <!-- association 中的property对应User类中新添加的Book类对象属性    -->
+        <association property="person" javaType="com.code.rts.entity.Person">
+            <id column="id" property="id"/>
+            <result column="true_name" property="trueName"  />
+            <result column="id_card_num" property="idCardNum"  />
+            <result column="phone_num" property="phoneNum"  />
+            <result column="age" property="age"  />
+        </association>
+    </resultMap>
+    <select id="getAllUsers" resultMap="personInfo">
+        SELECT u.person_id, u.username, p.true_name, p.id_card_num, p.phone_num, p.age
+        FROM `user` u, `person` p
+        WHERE u.person_id = p.id
+    </select>
+
+
+</mapper>

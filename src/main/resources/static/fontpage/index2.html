@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>高铁售票系统</title>
+    <link rel="stylesheet" href="../css/plugins/bootstrap.min.css">
+    <script src="../js/jquery.js"></script>
+    <script src="../js/plugins/bootstrap.min.js"></script>
+
+    <style>
+        body {
+            background: url('../images/train-bg.jpg');
+            background-size: cover; /*自适应浏览器*/
+        }
+        .error {
+            color: #d9534f;
+        }
+    </style>
+
+</head>
+<body>
+
+<!--导航条适应背景色-->
+<!--<nav class="navbar nav-divider">-->
+<!--    <div class="container-fluid" style="margin-top: 10px">-->
+<!--        <div class="navbar-header">-->
+<!--            <a class="navbar-brand" href="" style="color: ghostwhite; font-size: 50px;">Rail Ticketing System</a>-->
+<!--        </div>-->
+<!--        <div class="navbar-right">-->
+<!--            <a class="navbar-brand" href="" style="color: ghostwhite; font-size: 24px;">LOGIN</a>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</nav>-->
+
+<div class="container-fluid" style="position:absolute;margin-top:10%;width: 35%;left: 5%">
+    <h1 style="color: white">Where are we go now ?</h1>
+    <br>
+    <form id="queryform" class="form-horizontal" role="form">
+        <div class="input-group">
+            <label for="source" class="input-group-addon">出发城市</label>   <!--input必须要指定name-->
+            <input id="source" type="text" name="leave_city" class="form-control" placeholder="出发城市">
+        </div>
+        <div></div>
+        <br>
+        <div class="input-group">
+            <label for="target" class="input-group-addon">到达城市</label>
+            <input id="target" type="text" name="arrive_city" class="form-control" placeholder="到达城市">
+        </div>
+        <div></div>
+        <br>
+        <div class="input-group">
+            <label for="date" class="input-group-addon">出发日期</label>
+            <input id="date" type="date" name="leave_date" class="form-control" placeholder="出行日期">
+        </div>
+        <div></div>
+        <br>
+        <center>
+            <button type="submit" class="btn btn-success">Let's Go</button>
+        </center>
+    </form>
+</div>
+<!-- //Footer -->
+
+<script src="../js/jquery.js"></script>
+<script src="../js/plugins/bootstrap.min.js"></script>
+<script src="../js/plugins/slick.min.js"></script>
+<script src="../js/plugins/jquery.form.js"></script>
+<script src="../js/plugins/jquery.validate.min.js"></script>
+<script src="../js/custom.js"></script>
+<script language="JavaScript">
+    fillerIn()
+</script>
+</body>
+</html>

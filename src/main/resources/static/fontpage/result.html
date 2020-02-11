@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>机票管理系统</title>
+    <link rel="stylesheet" href="../css/plugins/bootstrap.min.css">
+    <script src="../js/jquery.js"></script>
+    <script src="../js/plugins/bootstrap.min.js"></script>
+</head>
+<body style="background-color: #f1f1f1">
+<nav class="nav navbar-inverse">
+    <div class="container-fluid">
+        <!-- Header -->
+        <div class="navbar-header">
+            <a class="navbar-brand" href="{% url 'booksystem:index' %}">高铁购票系统</a>
+        </div>
+        <!-- Items -->
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                <a href="{% url 'booksystem:result' %}">
+                    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>&nbsp; 购票
+                </a>
+            </li>
+            <li id="welcomeText">
+                <a href="#">欢迎您 <span id="user"></span> 先生/女士</a>
+            </li>
+            <li id="userBtn">
+                <a href="{% url 'booksystem:user_info' %}">
+                    <span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp; 个人中心
+                </a>
+            </li>
+            <li id="logoutBtn">
+                <a href="" onclick="returnIndex()">
+                    <span class="glyphicon glyphicon-off" aria-hidden="true"></span>&nbsp; 退出
+                </a>
+            </li>
+            <li id="loginBtn">
+                <a href="login2.html">
+                    <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>&nbsp; 登录
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+
+<style>
+
+    .main {
+        margin-left: 50px;
+        margin-right: 50px;
+    }
+
+    .search_form {
+        background-color: white;
+        margin-top: 25px;
+        height: 90px;
+    }
+
+    .search_head {
+        background-color: #f1f1f1;
+        margin-top: 10px;
+        height: 30px;
+        text-align: center;
+        font-weight: bold;
+    }
+
+    .search_result_by_ltime { /*背景色与网页背景色相同*/
+        background-color: #f1f1f1;
+        margin-top: 10px;
+    }
+
+    .search_result_by_price { /*背景色与网页背景色相同*/
+        background-color: #f1f1f1;
+        margin-top: 10px;
+    }
+
+    .one_line {
+        background-color: white;
+        height: 90px;
+        margin-top: 10px;
+        text-align: center;
+    }
+
+    .ico_search_type {
+        display: inline-block; /*同行显示*/
+        width: 20px;
+        height: 20px;
+        background: url('http://pic.c-ctrip.com/flight/searchlist/icon_search_select.png') no-repeat;
+    }
+
+    .ico_search_lcity {
+        background-position: 0 0;
+    }
+
+    .ico_search_acity {
+        background-position: 0 -20px;
+    }
+
+    .ico_search_ldate {
+        background-position: 0 -40px;
+    }
+
+    .my_input {
+        position: absolute;
+        width: 80%;
+    }
+
+    .btn-warning {
+        background-color: #ffb000;
+    }
+
+    .flight_name {
+        line-height: 90px;
+        font-size: x-large;
+        font-weight: bold;
+    }
+
+
+</style>
+
+<div class="main">
+
+    <!--搜索框-->
+    <div class="search_form">
+        <div class="col-sm-12" style="margin-top: 20px">
+            <form id="queryform" class="form-horizontal" role="form">
+                <div class="col-sm-3">
+                    <span class="ico_search_type ico_search_lcity"></span><br>
+                    <input class="my_input" type="text" id="source" name="leave_city" placeholder="出发站"
+                           value="">
+                </div>
+                <div class="col-sm-3">
+                    <span class="ico_search_type ico_search_acity"></span><br>
+                    <input class="my_input" type="text" id="target" name="arrive_city" placeholder="到达站"
+                           value="">
+                </div>
+                <div class="col-sm-3">
+                    <span class="ico_search_type ico_search_ldate"></span><br>
+                    <input class="my_input" type="date" id="date" name="leave_date" placeholder="日期"
+                           value="">
+                </div>
+                <div class="col-sm-3">
+                    <div style="position: absolute;margin-top: 10px;margin-left: 35%">
+                        <button class="btn btn btn-info" type="submit" value="">重新搜索</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!--标题行(标明4种排序方式)-->
+    <div class="search_head" id="search_head">
+        <div class="col-sm-12">
+            <button class="col-sm-3 btn btn-primary">车次信息</button>
+            <button class="col-sm-3 btn btn-success" onclick="search_by_ltime()">出发信息</button>
+            <button class="col-sm-3 btn btn-danger" onclick="search_by_atime()">到达信息</button>
+            <button class="col-sm-3 btn btn-warning" onclick="search_by_price()">价格</button>
+        </div>
+    </div>
+
+    <!--如果没有查找到-->
+    <div class="alert" id="search_failure" style="margin-top: 20px; background-color:white;">
+        <h1 id="test">尊敬的旅客</h1>
+        <p style="margin-left: 50px">
+            很抱歉，我们目前没有开通这趟车次，请尝试选择其他车次，祝您旅途愉快！
+        </p>
+    </div>
+
+    <!--显示结果-->
+    <div class="search_result" id="searchResult"></div>
+
+</div>
+<script>
+    var username = window.localStorage.getItem("username");
+    if (username){
+        $('#user').text(username);
+        $("#loginBtn").hide();
+    }else {
+        $("#welcomeText").hide();
+        $("#userBtn").hide();
+        $("#logoutBtn").hide();
+    }
+
+</script>
+<script>
+    function returnIndex() {
+        localStorage.clear();
+    }
+</script>
+
+<!-- //Footer -->
+<script>
+    var queryResult = localStorage.getItem("queryResult")
+    queryResult = JSON.parse(queryResult);
+    if (queryResult != ''){
+        var showContent = '';
+        $("#search_failure").hide();
+        for (var i in queryResult){
+            showContent += '<div class="one_line">\n' +
+                '    <div class="col-sm-12">\n' +
+                '        <div class="col-sm-3">\n' +
+                '            <p class="flight_name">' + queryResult[i].carNum + '</p>\n' +
+                '        </div>\n' +
+                '        <div class="col-sm-3">\n' +
+                '            <p style="padding: 10px">\n' +
+                '                <span style="font-size: xx-large">' + queryResult[i].startTime.substring(11, 18) + '</span>\n' +
+                '                <br>\n' +
+                '                ' + queryResult[i].orginLocation + '\n' +
+                '            </p>\n' +
+                '        </div>\n' +
+                '        <div class="col-sm-3">\n' +
+                '            <p style="padding: 10px">\n' +
+                '                <span style="font-size: xx-large">' + queryResult[i].reachTime.substring(11, 18) + '</span>\n' +
+                '                <br>\n' +
+                '                ' + queryResult[i].destinationLocation + '\n' +
+                '            </p>\n' +
+                '        </div>\n' +
+                '        <div class="col-sm-3">\n' +
+                '            <p style="padding: 22px 0;">\n' +
+                '                                <span style="position:absolute;margin-top: 10px;margin-left: -50px;\n' +
+                '                                    font-size:smaller;color: gray;">剩余票数</span>\n' +
+                '                <span style="position:absolute;margin-top: 26px;margin-left: -47px;\n' +
+                '                                    font-size:smaller;color: gray">' + queryResult[i].ticketNum + '</span>\n' +
+                '                <sup>￥</sup>\n' +
+                '                <span style="color: #ff6600;font-size: xx-large;">' + queryResult[i].ticketPrice + '</span>\n' +
+                '                <sub></sub>&nbsp;\n' +
+                '                <button onclick="booking(queryResult[i])"\n' +
+                '                   class="btn btn-sm btn-warning">订票</button>\n' +
+                '            </p>\n' +
+                '        </div>\n' +
+                '    </div>\n' +
+                '</div>';
+        }
+        console.log(showContent);
+        $("#searchResult").text('');
+        $("#searchResult").append(showContent);
+    }else {
+        $('#searchResult').hide();
+    }
+</script>
+
+<script src="../js/plugins/bootstrap.min.js"></script>
+<script src="../js/plugins/slick.min.js"></script>
+<script src="../js/plugins/jquery.form.js"></script>
+<script src="../js/plugins/jquery.validate.min.js"></script>
+<script src="../js/custom.js"></script>
+<script language="JavaScript">
+    fillerIn()
+</script>
+
+</body>
+</html>
