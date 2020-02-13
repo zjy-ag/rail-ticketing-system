@@ -50,7 +50,7 @@ public interface OrderDao {
      * 查询订单所有人信息
      */
     @Select("select * from `person` where `id` = #{personId}")
-    Person getPersoninf(int personId);
+    User getUserinfo(int id);
 
     /**
      * 改签订单信息变更

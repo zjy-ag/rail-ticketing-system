@@ -14,8 +14,6 @@ public class LoginService {
     @Resource
     private UserDao userDao;
 
-    @Resource
-    private PersonDao personDao;
 
     public Result loginIn(User userData) {
         Result result = new Result();

@@ -12,9 +12,11 @@ import lombok.Setter;
 @Setter
 public class User {
     private int id;
-    private int personId;
     private String username;
     private String password;
-    private Person person;
-
+    private String trueName;
+    private String idCardNum;
+    private String phoneNum;
+    private int age;
+    private String sex;
 }

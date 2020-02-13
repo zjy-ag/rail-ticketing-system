@@ -3,11 +3,9 @@ package com.code.rts.service;
 
 import com.code.rts.Result.Result;
 import com.code.rts.dao.OrderDao;
-import com.code.rts.dao.PersonDao;
 import com.code.rts.dao.TripsDao;
 import com.code.rts.dao.UserDao;
 import com.code.rts.entity.Order;
-import com.code.rts.entity.Person;
 import com.code.rts.entity.Trips;
 import com.code.rts.entity.User;
 import org.springframework.stereotype.Service;
@@ -25,8 +23,6 @@ public class TripsService {
 
     @Resource
     private UserDao userDao;
-    @Resource
-    private PersonDao personDao;
 
     @Resource
     private TripsDao tripsDao;
@@ -67,8 +63,7 @@ public class TripsService {
 
         //获取用户个人信息的id
         User customer = userDao.getUserByUsername(username);
-        Person person = personDao.getPersonInfo(customer.getPersonId());
-        if (person == null){
+        if (customer.getTrueName() == null || customer.getIdCardNum() == null || customer.getPhoneNum() == null){
             result.setStateCode(400);
             result.setMsg("购票前请完善用户个人信息");
             result.setData(false);
@@ -80,7 +75,7 @@ public class TripsService {
         //获取车票详细信息
         Trips tripsInfoData = tripsDao.getTripsInfoByCarInfoIdAndId(trips);
         //判断车票是否卖光了
-        Order order = new Order(carInfoId, customer.getPersonId(),0);
+        Order order = new Order(carInfoId, customer.getId(),0);
         order.setStatus(0);
         if (tripsInfoData.getTicketNum() >= 1){
 
@@ -93,7 +88,6 @@ public class TripsService {
                 //还有车票，购买成功
                   result.setMsg("购票成功");
                   result.setStateCode(200);
-                  detailData.put("personInfo",person);
                   detailData.put("customer", customer);
                   detailData.put("changeTimes",3 - order.getChangeTimes());
                   detailData.put("order", order);

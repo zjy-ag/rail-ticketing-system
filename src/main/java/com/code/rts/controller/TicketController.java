@@ -59,7 +59,7 @@ public class TicketController {
 //       获取这三个信息进行订单查询 personId  carNum  orginLocation  destinationLocation
 //        int personId = 0;
         String username = data.getString("username");
-        int personId = userDao.getUserByUsername(username).getPersonId();
+        int personId = userDao.getUserByUsername(username).getId();
         String carNum = data.getString("carNum");
         String startTime = data.getString("startTime");
         String reachTime = data.getString("reachTime");

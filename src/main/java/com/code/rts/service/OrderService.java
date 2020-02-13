@@ -20,7 +20,7 @@ public class OrderService {
 
     public Result getOrder(String username) {
         Result result = new Result();
-        Person person = new Person();
+        User user = new User();
         List<OrderReturn> orderReturnList  = new ArrayList<OrderReturn>();
         Trips trips = new Trips();
 
@@ -31,11 +31,11 @@ public class OrderService {
 
             for(Order i:orderdata){
                 OrderReturn orderReturn = new OrderReturn();
-                person = orderDao.getPersoninf(i.getPersonId());
+                user = orderDao.getUserinfo(i.getPersonId());
                 trips = tripsDao.gettrips(i.getCarInfoId());
-                orderReturn.setTrueName(person.getTrueName());
-                orderReturn.setIdCardNum(person.getIdCardNum());
-                orderReturn.setPhoneNum(person.getPhoneNum());
+                orderReturn.setTrueName(user.getTrueName());
+                orderReturn.setIdCardNum(user.getIdCardNum());
+                orderReturn.setPhoneNum(user.getPhoneNum());
                 orderReturn.setCarNum(trips.getCarNum());
                 orderReturn.setDestinationLocation(trips.getDestinationLocation());
                 orderReturn.setOrginLocation(trips.getOrginLocation());

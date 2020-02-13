@@ -23,8 +23,15 @@ public interface UserDao {
      * @param user
      * @return
      */
-    @Insert("insert into user (username, password, person_id) values(#{username}, #{password}, #{personId})")
+    @Insert("insert into user (username, password) values(#{username}, #{password})")
     int insertUserRegisterInfo(User user);
+
+    /**
+     * 更新用户信息
+     * @param user
+     * @return
+     */
+    int updateUser(User user);
 
     /**
      * 更新用户账户信息
@@ -47,8 +54,19 @@ public interface UserDao {
     Integer getUsersCount();
 
 
+    /**
+     * 根据id删除用户
+     * @param id
+     * @return
+     */
+    Integer deleteUser(Integer id);
 
-
-
+    /**
+     * 在后台添加用户
+     * @param user
+     * @return
+     */
+    @Insert("insert into user (username, password, true_name, id_card_num, phone_num, age, sex) values(#{username}, #{password}, #{trueName}, #{idCardNum}, #{phoneNum}, #{age}, #{sex})")
+    int saveUser(User user);
 
 }
