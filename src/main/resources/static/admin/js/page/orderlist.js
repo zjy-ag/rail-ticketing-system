@@ -2,15 +2,15 @@ $(function () {
     var totalRecord,currentPage,totalPage;
     //1.显示所有数据
     to_page(1);
-    //2.添加用户
+    //2.添加订单
     addUser();
-    //3.修改用户
+    //3.修改订单
     reviseUser();
-    //4.单个删除用户
+    //4.单个删除订单
     deleteUser();
 
     /**
-     * 1.显示所用用户
+     * 1.显示所用订单
      * @param pn
      */
     function to_page(pn) {
@@ -24,7 +24,7 @@ $(function () {
             success: function (result) {
                 //alert(result.msg);
                 //解析并显示员工数据表
-                build_users_table(result)
+                build_orders_table(result)
 
                 //2.解析并显示分页信息
                 build_page_info(result);
@@ -39,13 +39,13 @@ $(function () {
      * 解析并显示员工数据表
      * @param data
      */
-    function build_users_table(result) {
+    function build_orders_table(result) {
         //清空table表格
-        $("#users_table tbody").empty();
-        var users = result.data.list;
+        $("#orders_table tbody").empty();
+        var orders = result.data.list;
 
         //遍历元素
-        $.each(users, function (index, item) {
+        $.each(orders, function (index, item) {
             var checkBox=$("<td><input type='checkbox' class='check_item'/></td>");
             var id = $("<td></td>").append(item.id);
             var trueName = $("<td></td>").append(item.trueName);
@@ -55,13 +55,21 @@ $(function () {
             var destinationLocation = $("<td></td>").append(item.destinationLocation);
             var startTime = $("<td></td>").append(item.startTime);
             var reachTime = $("<td></td>").append(item.reachTime);
-            var status = $("<td></td>").append(item.status);
+            var status = "<button class='btn-danger'>订单无效</button>";
+            if (item.status == 1){
+                status = "<button class='btn-warning'>未支付</button>";
+            }else if (item.status == 2){
+                status = "<button class='btn-success'>已支付</button>";
+            }else if (item.status == 3){
+                status = "<button class='btn-default'>已使用</button>";
+            }
+            var status = $("<td></td>").append(status);
 
-            var button1 = $("<button></button>").addClass("btn btn-primary btn-sm edit_btn").append($("<span></span>").addClass("glyphicon glyphicon-pencil").attr("aria-hidden", true)).append("编辑");
+            var button1 = $("<button></button>").addClass("btn btn-primary btn-sm edit_btn").append($("<span></span>").addClass("glyphicon glyphicon-pencil").attr("aria-hidden", true)).append("改变状态");
             var button2 = $("<button></button>").addClass("tn btn-danger btn-sm delete_btn").append($("<span></span>").addClass("glyphicon glyphicon-trash").attr("aria-hidden", true)).append("删除");
             var td_btn = $("<td></td>").append(button1).append(" ").append(button2);
             $("<tr></tr>").append(checkBox).append(id).append(trueName).append(phoneNum).append(carNum).append(orginLocation).append(destinationLocation).append(startTime).append(reachTime).append(status)
-                .append(td_btn ).appendTo("#users_table tbody");
+                .append(td_btn ).appendTo("#orders_table tbody");
 
         })
     }
@@ -144,17 +152,17 @@ $(function () {
     function addUser() {
 
         //为新增按钮添加modal
-        $("#user_add_modal_btn").click(function () {
+        $("#order_add_modal_btn").click(function () {
             //清除表单数据
-            $("#userAddModal form")[0].reset();
-            $("#userAddModal").modal({
+            $("#orderAddModal form")[0].reset();
+            $("#orderAddModal").modal({
                 backdrop: "static"
             })
         });
 
         /**
-         * 2.保存用户信息
-         * 校验该用户是否存在,如果存在就不能添加该用户
+         * 2.保存订单信息
+         * 校验该订单是否存在,如果存在就不能添加该订单
          */
         $("#username_add_input").change(function () {
             var username = $("#username_add_input").val();
@@ -168,19 +176,19 @@ $(function () {
                     //表示成功，用户名可用
                     if (result.code == 200 && result.data.message == "success") {
                         //为保存按钮添加属性
-                        $("#user_save_btn").attr("ajax-va", "success");
+                        $("#order_save_btn").attr("ajax-va", "success");
                     }else{
                         alert(result.data.message);
-                        $("#user_save_btn").attr("ajax-va", "error");
+                        $("#order_save_btn").attr("ajax-va", "error");
                     }
                 }
             })
         });
 
         /**
-         * 保存用户信息
+         * 保存订单信息
          */
-        $("#user_save_btn").click(function () {
+        $("#order_save_btn").click(function () {
             var username = $("#username_add_input").val();
             var password = $("#password_add_input").val();
             var truename = $("#truename_add_input").val();
@@ -198,12 +206,12 @@ $(function () {
                 success: function (result) {
                     if (result.code == 200 && result.data.message == "success"){
                         //1.关闭modal框
-                        $("#userAddModal").modal('hide');
+                        $("#orderAddModal").modal('hide');
                         //2.来到最后一页，显示刚才保存的数据
                         to_page(totalPage);
                     }else {
                         //1.关闭modal框
-                        $("#userAddModal").modal('hide');
+                        $("#orderAddModal").modal('hide');
                         alert(result.data.message);
                     }
                 }
@@ -212,7 +220,7 @@ $(function () {
     }
 
     /**
-     * 3.修改用户
+     * 3.修改订单
      */
     function reviseUser() {
         //为编辑按钮绑定弹出modal框事件
@@ -220,32 +228,20 @@ $(function () {
 
         $(document).on("click",".edit_btn",function () {
             //清除表单数据
-            $("#userReviseModal form")[0].reset();
-            $("#username_revise_input").next("span").text("");
-
+            $("#orderReviseModal form")[0].reset();
             var id= $(this).parent().parent().children("td").eq(1).text();
             //将id的值传递给修改按钮的属性，方便发送Ajax请求
-            $("#user_revise_btn").attr("edit-id",id);
-            var username=$(this).parent().parent().children("td").eq(2).text();
-            var truename=$(this).parent().parent().children("td").eq(3).text();
-            var idCardNum=$(this).parent().parent().children("td").eq(4).text();
-            var phone=$(this).parent().parent().children("td").eq(5).text();
-            var age=$(this).parent().parent().children("td").eq(6).text();
-            var sex=$(this).parent().parent().children("td").eq(7).text();
+            $("#order_revise_btn").attr("edit-id",id);
+            var status=$(this).parent().parent().children("td").eq(9).text();
 
 
-            $("#username_revise_input").val(username);
-            $("#truename_revise_input").val(truename);
-            $("#idCardNum_revise_input").val(idCardNum);
-            $("#phone_revise_input").val(phone);
-            $("#age_revise_input").val(age);
-            $("#userReviseModal input[name=sex]").val([sex]);
-            $("#userReviseModal").modal({
+            $("#status_revise_input").find("option:contains('"+status+"')").attr("selected", true);
+            $("#orderReviseModal").modal({
                 backdrop: "static"
             })
         });
         //2.为模态框中的修改按钮绑定事件，更新员工信息
-        $("#user_revise_btn").click(function () {
+        $("#order_revise_btn").click(function () {
 
             //2.验证通过后发送ajax请求保存更新的员工数据
             //如果要直接发送PUT之类的请求
@@ -253,22 +249,16 @@ $(function () {
             //这里未使用如上所述方法
             //获取编辑后的
             var id = $(this).attr("edit-id");
-            var username = $("#username_revise_input").val();
-            var truename = $("#truename_revise_input").val();
-            var sex = $("#userReviseModal input[name=sex]").val();
-            alert(sex);
-            var idCardNum =$("#idCardNum_revise_input").val();
-            var phone =$("#phone_revise_input").val();
-            var age =$("#age_revise_input").val();
+            var status =$("#status_revise_input").val();
             $.ajax({
-                url:"http://localhost:8080/updateUser",
+                url:"http://localhost:8080/updateorder",
                 type:"POST",
-                data:JSON.stringify({id:id,username:username,trueName:truename,sex:sex,idCardNum:idCardNum,phoneNum:phone,age:age}),
+                data:JSON.stringify({id:id,status:status}),
                 dataType:"json",
                 contentType:"application/json;charset=UTF-8",
                 success:function () {
                     //1.关闭modal框
-                    $("#userReviseModal").modal('hide');
+                    $("#orderReviseModal").modal('hide');
                     //2.来到当前页，显示刚才保存的数据
                     to_page(currentPage);
 
@@ -279,14 +269,14 @@ $(function () {
     }
 
     /**
-     * 4.删除用户
+     * 4.删除订单
      */
     function deleteUser() {
         $(document).on("click",".delete_btn",function () {
             //1.弹出确认删除对话框
             var username=$(this).parents("tr").find("td:eq(2)").text();
             var id=$(this).parents("tr").find("td:eq(1)").text();
-            if(confirm("确认删除用户："+username+"吗？")){
+            if(confirm("确认删除订单："+username+"吗？")){
                 // alert(id);
                 //确认，发送ajax请求删除
                 $.ajax({

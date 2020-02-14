@@ -24,6 +24,13 @@ public interface OrderDao {
     void buyTicket(Order order);
 
     /**
+     * @param order
+     * @return
+     */
+    @Update("update `order` set status = #{status} where id = #{id}")
+    int updateOrderStatus(Order order);
+
+    /**
      * 退票，把statu改为2
      * @param orderId
      * @return

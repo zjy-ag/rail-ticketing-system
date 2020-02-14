@@ -19,16 +19,4 @@ public class Order {
     private int status;
     private String stautsMsg;
 
-    public Order(int id, int carInfoId, int personId, int changeTimes, int status) {
-        this.id = id;
-        this.carInfoId = carInfoId;
-        this.personId = personId;
-        this.changeTimes = changeTimes;
-        this.status = status;
-    }
-    public Order(int carInfoId, int personId, int changeTimes) {
-        this.carInfoId = carInfoId;
-        this.personId = personId;
-        this.changeTimes = changeTimes;
-    }
 }

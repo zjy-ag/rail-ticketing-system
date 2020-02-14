@@ -23,7 +23,7 @@
     <style>
         /* Additional style to fix warning dialog position */
 
-        #alertmod_table_userllist {
+        #alertmod_table_orderllist {
             top: 900px !important;
         }
     </style>
@@ -48,15 +48,14 @@
                         <!--按钮 -->
                         <div class="row">
                             <div class="col-md-3 col-md-offset-9 col-sm-4 col-sm-offset-8">
-                                <button class="btn btn-primary" id="user_add_modal_btn">新增</button>
-                                <button class="btn btn-danger" id="user_delete_all_btn">删除</button>
+                                <button class="btn btn-danger" id="order_delete_all_btn">删除</button>
                             </div>
                         </div>
                         <br>
                         <!--显示表格数据 -->
                         <div class="row">
                             <div class="table-responsive col-md-12">
-                                <table class="table table-hover" id="users_table">
+                                <table class="table table-hover" id="orders_table">
                                     <thead>
                                     <tr>
                                         <th>
@@ -97,142 +96,32 @@
         </div>
     </div>
 
-    <!-- 添加用户弹出的模态框 -->
-    <div class="modal fade" id="userAddModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                            aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="userAddModalLabel">添加用户</h4>
-                </div>
-                <div class="modal-body">
-                    <form class="form-horizontal">
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">用户名</label>
-                            <div class="col-sm-10">
-                                <input type="text" name="username" class="form-control" id="username_add_input" placeholder="用户名">
-                                <span class="help-block"></span>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">密码</label>
-                            <div class="col-sm-10">
-                                <input type="password" name="text" class="form-control" id="password_add_input" placeholder="密码">
-                                <span class="help-block"></span>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">真实姓名</label>
-                            <div class="col-sm-10">
-                                <input type="text" name="truename" class="form-control" id="truename_add_input" placeholder="姓名2-16位中英文、数字">
-                                <span class="help-block"></span>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">性别</label>
-                            <div class="col-sm-10">
-                                <label class="radio-inline">
-                                    <input type="radio" name="sex" id="sex1_add_input" value="男" checked="checked"> 男
-                                </label>
-                                <label class="radio-inline">
-                                    <input type="radio" name="sex" id="sex2_add_input" value="女"> 女
-                                </label>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">身份证号码</label>
-                            <div class="col-sm-10">
-                                <input type="text" name="idCardNum" class="form-control" id="idCardNum_add_input" placeholder="请输入身份证号码">
-                                <span  class="help-block"></span>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">电话号码</label>
-                            <div class="col-sm-10">
-                                <input type="text" name="phone" class="form-control" id="phone_add_input" placeholder="请输入电话号码">
-                                <span  class="help-block"></span>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">年龄</label>
-                            <div class="col-sm-10">
-                                <input type="text" name="age" class="form-control" id="age_add_input" placeholder="请输入年龄">
-                            </div>
-                        </div>
-
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                    <button type="button" class="btn btn-primary" id="user_save_btn">保存</button>
-                </div>
-            </div>
-        </div>
-    </div>
     <!--修改用户弹出的模态框 -->
-    <div class="modal fade" id="userReviseModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal fade" id="orderReviseModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                             aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="userReviseModalLabel">修改用户</h4>
+                    <h4 class="modal-title" id="orderReviseModalLabel">修改订单信息</h4>
                 </div>
                 <div class="modal-body">
                     <form class="form-horizontal">
                         <div class="form-group">
-                            <label class="col-sm-2 control-label">用户名</label>
+                            <label class="col-sm-2 control-label">订单状态</label>
                             <div class="col-sm-10">
-                                <input type="text" name="username" class="form-control" id="username_revise_input" placeholder="用户名">
-                                <span class="help-block"></span>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">真实姓名</label>
-                            <div class="col-sm-10">
-                                <input type="text" name="truename" class="form-control" id="truename_revise_input" placeholder="姓名2-16位中英文、数字">
-                                <span class="help-block"></span>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">性别</label>
-                            <div class="col-sm-10">
-                                <label class="radio-inline">
-                                    <input type="radio" name="sex" id="sex1_revise_input" value="男" checked="checked"> 男
-                                </label>
-                                <label class="radio-inline">
-                                    <input type="radio" name="sex" id="sex2_revise_input" value="女"> 女
-                                </label>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">身份证号码</label>
-                            <div class="col-sm-10">
-                                <input type="text" name="idCardNum" class="form-control" id="idCardNum_revise_input" placeholder="请输入身份证号码">
-                                <span  class="help-block"></span>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">电话号码</label>
-                            <div class="col-sm-10">
-                                <input type="text" name="phone" class="form-control" id="phone_revise_input" placeholder="请输入电话号码">
-                                <span  class="help-block"></span>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">年龄</label>
-                            <div class="col-sm-10">
-                                <input type="text" name="age" class="form-control" id="age_revise_input" placeholder="请输入年龄">
+                                <select id="status_revise_input" name="status" class="form-control m-b">
+                                    <option value="1">未支付</option>
+                                    <option value="2">已支付</option>
+                                    <option value="3">已使用</option>
+                                </select>
                             </div>
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                    <button type="button" class="btn btn-primary" id="user_revise_btn">修改</button>
+                    <button type="button" class="btn btn-primary" id="order_revise_btn">修改</button>
                 </div>
             </div>
         </div>

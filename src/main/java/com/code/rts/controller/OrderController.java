@@ -76,4 +76,29 @@ public class OrderController {
         Result result = orderService.changeOrder(orderid,tripsid);
         return result;
     }
+
+    /**
+     * 修改订单信息
+     */
+
+    @RequestMapping(value = "/updateorder",method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> updateUser(@RequestBody Order order){
+        int i = orderService.updateOrderStatus(order);
+        Map<String, Object> modelMap = new HashMap<>();
+        if (i == 1){
+            modelMap.put("code", 200);
+            Map<String, Object> dataMap = new HashMap<>();
+            dataMap.put("message", "success");
+            dataMap.put("entity", null);
+            modelMap.put("data", dataMap);
+        }else {
+            modelMap.put("code", 200);
+            Map<String, Object> dataMap = new HashMap<>();
+            dataMap.put("message", "获取model列表失败");
+            dataMap.put("entity", null);
+            modelMap.put("data", dataMap);
+        }
+        return modelMap;
+    }
 }

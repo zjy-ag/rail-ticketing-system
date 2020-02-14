@@ -75,7 +75,11 @@ public class TripsService {
         //获取车票详细信息
         Trips tripsInfoData = tripsDao.getTripsInfoByCarInfoIdAndId(trips);
         //判断车票是否卖光了
-        Order order = new Order(carInfoId, customer.getId(),0);
+        Order order = new Order();
+        order.setCarInfoId(carInfoId);
+        order.setPersonId(customer.getId());
+        order.setChangeTimes(0);
+
         order.setStatus(0);
         if (tripsInfoData.getTicketNum() >= 1){
 

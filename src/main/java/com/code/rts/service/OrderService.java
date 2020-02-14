@@ -4,6 +4,7 @@ import com.code.rts.Result.Result;
 import com.code.rts.dao.*;
 import com.code.rts.entity.*;
 import com.github.pagehelper.Page;
+import org.aspectj.weaver.ast.Or;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -19,10 +20,19 @@ public class OrderService {
     @Resource
     private TripsDao tripsDao;
 
+    /**
+     * 得到订单状态
+     * @return
+     */
     public Page<OrderReturn> getAllOrders(){
         return orderDao.getAllOrders();
     }
 
+    /**
+     * 得到订单
+     * @param username
+     * @return
+     */
     public Result getOrder(String username) {
         Result result = new Result();
         User user = new User();
@@ -89,5 +99,9 @@ public class OrderService {
             result.setMsg("change order failed");
         }
         return result;
+    }
+
+    public int updateOrderStatus(Order order){
+        return orderDao.updateOrderStatus(order);
     }
 }
