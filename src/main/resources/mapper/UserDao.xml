@@ -51,7 +51,7 @@
 
     <!--根据id删除用户-->
     <delete id="deleteUser" parameterType="Integer">
-      DELETE FROM user WHERE id=#{id}
+      DELETE FROM `user` WHERE id=#{id}
     </delete>
 
 </mapper>

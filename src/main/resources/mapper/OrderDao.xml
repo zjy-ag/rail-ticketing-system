@@ -12,5 +12,10 @@
         WHERE o.person_id = u.id AND o.car_info_id = t.id
     </select>
 
+    <!--根据id删除订单-->
+    <delete id="deleteOrder" parameterType="Integer">
+      DELETE FROM `order` WHERE id=#{id}
+    </delete>
+
 
 </mapper>

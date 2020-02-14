@@ -13,6 +13,13 @@ public interface OrderDao {
      * @return
      */
     Page<OrderReturn> getAllOrders();
+
+    /**
+     * 删除订单
+     * @param id
+     * @return
+     */
+    Integer deleteOrder(Integer id);
     /**
      *插入订单信息
      * @param order

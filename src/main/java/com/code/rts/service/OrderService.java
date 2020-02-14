@@ -104,4 +104,8 @@ public class OrderService {
     public int updateOrderStatus(Order order){
         return orderDao.updateOrderStatus(order);
     }
+
+    public Integer deleteOrder(Integer id){
+        return orderDao.deleteOrder(id);
+    }
 }

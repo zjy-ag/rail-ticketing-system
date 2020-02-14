@@ -274,17 +274,18 @@ $(function () {
     function deleteUser() {
         $(document).on("click",".delete_btn",function () {
             //1.弹出确认删除对话框
-            var username=$(this).parents("tr").find("td:eq(2)").text();
             var id=$(this).parents("tr").find("td:eq(1)").text();
-            if(confirm("确认删除订单："+username+"吗？")){
-                // alert(id);
+            if(confirm("确认删除订单号："+id+" 吗？")){
+                //alert(id);
                 //确认，发送ajax请求删除
                 $.ajax({
-                    url:"http://localhost:8080/deleteUser/"+id,
+                    url:"http://localhost:8080/deleteOrder/"+id,
                     type:"DELETE",
                     success:function (result) {
-                        if (result.status == 200 && result.data.message == "success"){
+                        if (result.code == 200 && result.data.message == "success"){
                             alert("删除成功");
+                        }else {
+                            alert(result.data.message);
                         }
                         to_page(currentPage);
                     }

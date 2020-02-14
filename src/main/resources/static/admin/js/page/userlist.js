@@ -291,7 +291,7 @@ $(function () {
                     url:"http://localhost:8080/deleteUser/"+id,
                     type:"DELETE",
                     success:function (result) {
-                        if (result.status == 200 && result.data.message == "success"){
+                        if (result.code == 200 && result.data.message == "success"){
                             alert("删除成功");
                         }
                         to_page(currentPage);
