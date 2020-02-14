@@ -1,6 +1,8 @@
 package com.code.rts.controller;
 
 
+import com.alibaba.fastjson.JSONObject;
+import com.code.rts.Result.Result;
 import com.code.rts.entity.*;
 import com.code.rts.service.UserService;
 import com.github.pagehelper.PageHelper;
@@ -69,10 +71,11 @@ public class UserController {
      * @param jsonObject
      * @return
      */
-//    @PostMapping("/getpersoninfo")
-//    public Result getPersonInfo(@RequestBody JSONObject jsonObject){
-//        return userService.getPersonInfo(jsonObject.getString("username"));
-//    }
+    @PostMapping("/getpersoninfo")
+    public Result getPersonInfo(@RequestBody JSONObject jsonObject){
+        System.out.println(jsonObject.getString("username"));
+        return userService.getPersonInfo(jsonObject.getString("username"));
+    }
 
     /**
      * 得到分页用户

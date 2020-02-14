@@ -51,21 +51,21 @@ public class UserService {
 
     }
 
-//    public Result getPersonInfo(String username) {
-//        Result result = new Result();
-//        Person person = personDao.getPersonInfo(username);
-//        if (person == null) {
-//            result.setStateCode(400);
-//            result.setMsg("未填写个人信息，请完善个人信息");
-//            result.setData(null);
-//        } else {
-//            result.setStateCode(200);
-////            result.setStateCode();
-//            result.setMsg("查询成功，已填写个人信息");
-//            result.setData(person);
-//        }
-//        return result;
-//    }
+    public Result getPersonInfo(String username) {
+        Result result = new Result();
+        User user = userDao.getUserByUsername(username);
+        if (user == null) {
+            result.setStateCode(400);
+            result.setMsg("未填写个人信息，请完善个人信息");
+            result.setData(null);
+        } else {
+            result.setStateCode(200);
+//            result.setStateCode();
+            result.setMsg("查询成功，已填写个人信息");
+            result.setData(user);
+        }
+        return result;
+    }
 
     public Page<User> getAllUsers() {
         return userDao.getAllUsers();
