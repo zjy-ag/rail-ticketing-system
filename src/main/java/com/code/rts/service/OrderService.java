@@ -3,6 +3,7 @@ package com.code.rts.service;
 import com.code.rts.Result.Result;
 import com.code.rts.dao.*;
 import com.code.rts.entity.*;
+import com.github.pagehelper.Page;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -17,6 +18,10 @@ public class OrderService {
 
     @Resource
     private TripsDao tripsDao;
+
+    public Page<OrderReturn> getAllOrders(){
+        return orderDao.getAllOrders();
+    }
 
     public Result getOrder(String username) {
         Result result = new Result();

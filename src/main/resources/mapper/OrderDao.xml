@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--对应接口，写入sql语句-->
+
+<mapper namespace="com.code.rts.dao.OrderDao">
+
+    <select id="getAllOrders" resultType="com.code.rts.entity.OrderReturn"  parameterType="com.github.pagehelper.Page">
+        SELECT o.id, t.orgin_location, t.destination_location, t.start_time, t.reach_time, t.car_num, t.ticket_price, u.true_name, u.id_card_num, u.phone_num, o.status
+        FROM `order` o, `user` u, `trips` t
+        WHERE o.person_id = u.id AND o.car_info_id = t.id
+    </select>
+
+
+</mapper>

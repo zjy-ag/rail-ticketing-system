@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <title>高铁售票系统 - 订单管理</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+
+    <link rel="shortcut icon" href=""> <link href="css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="css/font-awesome.css?v=4.4.0" rel="stylesheet">
+
+    <!-- jqgrid-->
+    <link href="css/plugins/jqgrid/ui.jqgrid.css" rel="stylesheet">
+
+    <link href="css/animate.css" rel="stylesheet">
+    <link href="css/style.css?v=4.1.0" rel="stylesheet">
+
+    <style>
+        /* Additional style to fix warning dialog position */
+
+        #alertmod_table_userllist {
+            top: 900px !important;
+        }
+    </style>
+
+</head>
+
+<body class="gray-bg">
+    <div class="wrapper wrapper-content  animated fadeInRight">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox ">
+                    <div class="ibox-title">
+                        <h5></h5>
+                    </div>
+                    <div class="ibox-content">
+                        <!--标题 -->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h1>订单管理</h1>
+                            </div>
+                        </div>
+                        <!--按钮 -->
+                        <div class="row">
+                            <div class="col-md-3 col-md-offset-9 col-sm-4 col-sm-offset-8">
+                                <button class="btn btn-primary" id="user_add_modal_btn">新增</button>
+                                <button class="btn btn-danger" id="user_delete_all_btn">删除</button>
+                            </div>
+                        </div>
+                        <br>
+                        <!--显示表格数据 -->
+                        <div class="row">
+                            <div class="table-responsive col-md-12">
+                                <table class="table table-hover" id="users_table">
+                                    <thead>
+                                    <tr>
+                                        <th>
+                                            <input type="checkbox" id="check_all"/>
+                                        </th>
+                                        <th>ID</th>
+                                        <th>真实姓名</th>
+                                        <th>手机</th>
+                                        <th>车次</th>
+                                        <th>起始站</th>
+                                        <th>终点站</th>
+                                        <th>出发时间</th>
+                                        <th>到达时间</th>
+                                        <th>状态</th>
+                                        <th>操作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!--显示分页信息 -->
+                        <div class="row">
+                            <!--分页文字信息 -->
+                            <div class="col-md-6 col-sm-6" id="page_info_area">
+                                当前第页，总共页，总共条记录
+                            </div>
+                            <!--分页导航条信息 -->
+                            <div class="col-md-6 col-sm-6" id="page_nav_area">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 添加用户弹出的模态框 -->
+    <div class="modal fade" id="userAddModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="userAddModalLabel">添加用户</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">用户名</label>
+                            <div class="col-sm-10">
+                                <input type="text" name="username" class="form-control" id="username_add_input" placeholder="用户名">
+                                <span class="help-block"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">密码</label>
+                            <div class="col-sm-10">
+                                <input type="password" name="text" class="form-control" id="password_add_input" placeholder="密码">
+                                <span class="help-block"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">真实姓名</label>
+                            <div class="col-sm-10">
+                                <input type="text" name="truename" class="form-control" id="truename_add_input" placeholder="姓名2-16位中英文、数字">
+                                <span class="help-block"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">性别</label>
+                            <div class="col-sm-10">
+                                <label class="radio-inline">
+                                    <input type="radio" name="sex" id="sex1_add_input" value="男" checked="checked"> 男
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" name="sex" id="sex2_add_input" value="女"> 女
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">身份证号码</label>
+                            <div class="col-sm-10">
+                                <input type="text" name="idCardNum" class="form-control" id="idCardNum_add_input" placeholder="请输入身份证号码">
+                                <span  class="help-block"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">电话号码</label>
+                            <div class="col-sm-10">
+                                <input type="text" name="phone" class="form-control" id="phone_add_input" placeholder="请输入电话号码">
+                                <span  class="help-block"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">年龄</label>
+                            <div class="col-sm-10">
+                                <input type="text" name="age" class="form-control" id="age_add_input" placeholder="请输入年龄">
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-primary" id="user_save_btn">保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--修改用户弹出的模态框 -->
+    <div class="modal fade" id="userReviseModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="userReviseModalLabel">修改用户</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">用户名</label>
+                            <div class="col-sm-10">
+                                <input type="text" name="username" class="form-control" id="username_revise_input" placeholder="用户名">
+                                <span class="help-block"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">真实姓名</label>
+                            <div class="col-sm-10">
+                                <input type="text" name="truename" class="form-control" id="truename_revise_input" placeholder="姓名2-16位中英文、数字">
+                                <span class="help-block"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">性别</label>
+                            <div class="col-sm-10">
+                                <label class="radio-inline">
+                                    <input type="radio" name="sex" id="sex1_revise_input" value="男" checked="checked"> 男
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" name="sex" id="sex2_revise_input" value="女"> 女
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">身份证号码</label>
+                            <div class="col-sm-10">
+                                <input type="text" name="idCardNum" class="form-control" id="idCardNum_revise_input" placeholder="请输入身份证号码">
+                                <span  class="help-block"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">电话号码</label>
+                            <div class="col-sm-10">
+                                <input type="text" name="phone" class="form-control" id="phone_revise_input" placeholder="请输入电话号码">
+                                <span  class="help-block"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">年龄</label>
+                            <div class="col-sm-10">
+                                <input type="text" name="age" class="form-control" id="age_revise_input" placeholder="请输入年龄">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-primary" id="user_revise_btn">修改</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+   
+    <!-- 全局js -->
+    <script src="js/jquery.min.js?v=2.1.4"></script>
+    <script src="js/bootstrap.min.js?v=3.3.6"></script>
+
+
+
+
+
+    <!-- 自定义js -->
+    <script src="js/content.js?v=1.0.0"></script>
+    <!-- Page-Level Scripts -->
+    <script src="js/page/orderlist.js"></script>
+    
+    
+
+</body>
+
+</html>

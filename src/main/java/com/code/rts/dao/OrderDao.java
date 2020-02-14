@@ -1,12 +1,18 @@
 package com.code.rts.dao;
 
 import com.code.rts.entity.*;
+import com.github.pagehelper.Page;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
 
 public interface OrderDao {
+    /**
+     * 查询所有订单
+     * @return
+     */
+    Page<OrderReturn> getAllOrders();
     /**
      *插入订单信息
      * @param order

@@ -6,6 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class OrderReturn {
+    private Integer id;
     private String orginLocation;
     private String destinationLocation;
     //    @DateTimeFormat(pattern="yyyy-MM-dd hh:mm:ss")
