@@ -1299,7 +1299,7 @@ function change() {
 }
 
 /**
- * 下订单
+ * 确认订单
  * @param data
  */
 function booking(data) {
@@ -1361,6 +1361,22 @@ function pay() {
 /**
  * 支付后点击的
  */
-function payed(id){
-	window.location.href = "orderForm.html";
+function payed(){
+	//改变订单的状态
+	var id = window.localStorage.getItem("curOrderId");
+	$.ajax({
+		url:"http://localhost:8080/saveOrderPayed/"+id,
+		type:"GET",
+		success:function (result) {
+			if (result.code == 200 && result.data.message == "success"){
+				window.localStorage.removeItem('curTicket');
+				window.location.href = "orderForm.html";
+			}else {
+				alert(result.data.message);
+			}
+		},
+		fail:function () {
+			alert("支付错误");
+		}
+	})
 }

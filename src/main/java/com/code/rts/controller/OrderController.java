@@ -112,8 +112,8 @@ public class OrderController {
     @ResponseBody
     public Map<String, Object> deleteOrder(@PathVariable("id")Integer id){
         Map<String, Object> modelMap = new HashMap<>();
-        //保存用户
-//        try {
+        //删除用户
+        try {
             int i = orderService.deleteOrder(id);
             if (i == 1){
                 modelMap.put("code", 200);
@@ -128,13 +128,86 @@ public class OrderController {
                 dataMap.put("entity", null);
                 modelMap.put("data", dataMap);
             }
-//        }catch (Exception e){
-//            modelMap.put("code", 500);
-//            Map<String, Object> dataMap = new HashMap<>();
-//            dataMap.put("message", "删除失败");
-//            dataMap.put("entity", null);
-//            modelMap.put("data", dataMap);
-//        }
+        }catch (Exception e){
+            modelMap.put("code", 500);
+            Map<String, Object> dataMap = new HashMap<>();
+            dataMap.put("message", e.fillInStackTrace());
+            dataMap.put("entity", null);
+            modelMap.put("data", dataMap);
+        }
+        return modelMap;
+    }
+
+
+    /**
+     * 下订单（状态：未支付）
+     */
+    @Transactional
+    @RequestMapping(value = "/saveOrderPaying",method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> deleteOrder(@RequestBody JSONObject jsonObject){
+        int carInfoId = jsonObject.getInteger("car_info_id");
+        int personId = jsonObject.getInteger("person_id");
+        Order order = new Order();
+        order.setCarInfoId(carInfoId);
+        order.setPersonId(personId);
+        order.setChangeTimes(0);
+        order.setStatus(1);
+        Map<String, Object> modelMap = new HashMap<>();
+        try {
+            //此处应该获产生订单后的id号
+            int i = orderService.saveOrderPaying(order);
+            int orderId = order.getId();
+            if (i == 1){
+                modelMap.put("code", 200);
+                Map<String, Object> dataMap = new HashMap<>();
+                dataMap.put("message", "success");
+                dataMap.put("entity", orderId);
+                modelMap.put("data", dataMap);
+            }else {
+                modelMap.put("code", 200);
+                Map<String, Object> dataMap = new HashMap<>();
+                dataMap.put("message", "购买失败");
+                dataMap.put("entity", null);
+                modelMap.put("data", dataMap);
+            }
+        }catch (Exception e){
+            modelMap.put("code", 500);
+            Map<String, Object> dataMap = new HashMap<>();
+            dataMap.put("message", e.fillInStackTrace());
+            dataMap.put("entity", null);
+            modelMap.put("data", dataMap);
+        }
+        return modelMap;
+    }
+    @Transactional
+    @RequestMapping(value = "/saveOrderPayed/{id}",method = RequestMethod.GET)
+    @ResponseBody
+    public Map<String, Object> saveOrderPayed(@PathVariable("id")Integer id){
+        Map<String, Object> modelMap = new HashMap<>();
+        try {
+            int i = orderService.saveOrderPayed(id);
+
+            if (i == 1){
+                modelMap.put("code", 200);
+                Map<String, Object> dataMap = new HashMap<>();
+                dataMap.put("message", "success");
+                dataMap.put("entity", null);
+                modelMap.put("data", dataMap);
+            }else {
+                modelMap.put("code", 200);
+                Map<String, Object> dataMap = new HashMap<>();
+                dataMap.put("message", "操作失败");
+                dataMap.put("entity", null);
+                modelMap.put("data", dataMap);
+            }
+        }catch (Exception e){
+            modelMap.put("code", 500);
+            Map<String, Object> dataMap = new HashMap<>();
+            dataMap.put("message", e.fillInStackTrace());
+            dataMap.put("entity", null);
+            modelMap.put("data", dataMap);
+        }
         return modelMap;
     }
 }

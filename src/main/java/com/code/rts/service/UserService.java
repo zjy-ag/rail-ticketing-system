@@ -56,7 +56,7 @@ public class UserService {
         User user = userDao.getUserByUsername(username);
         if (user == null) {
             result.setStateCode(400);
-            result.setMsg("未填写个人信息，请完善个人信息");
+            result.setMsg("未填写个人信息，请前往个人信息页面完善个人信息");
             result.setData(null);
         } else {
             result.setStateCode(200);

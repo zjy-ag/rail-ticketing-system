@@ -3,6 +3,7 @@ package com.code.rts.dao;
 import com.code.rts.entity.*;
 import com.github.pagehelper.Page;
 import org.apache.ibatis.annotations.*;
+import org.aspectj.weaver.ast.Or;
 
 import java.util.List;
 
@@ -31,6 +32,15 @@ public interface OrderDao {
     void buyTicket(Order order);
 
     /**
+     * 下订单（状态：未支付）
+     * @param order
+     * @return
+     */
+    @Insert("INSERT INTO `order` (car_info_id, person_id, change_times, status) VALUES (#{carInfoId}, #{personId}, #{changeTimes}, #{status})")
+    @Options(useGeneratedKeys=true, keyProperty="id", keyColumn="id")
+    int saveOrderPaying(Order order);
+
+    /**
      * @param order
      * @return
      */
@@ -38,12 +48,20 @@ public interface OrderDao {
     int updateOrderStatus(Order order);
 
     /**
-     * 退票，把statu改为2
+     * 退票，把status改为3
      * @param orderId
      * @return
      */
-    @Update("update `order` set status = 1 where id = #{orderId}")
+    @Update("update `order` set status = 3 where id = #{orderId}")
     int updateOrder(int orderId);
+
+    /**
+     * 支付后，把status改成2
+     * @param orderId
+     * @return
+     */
+    @Update("update `order` set status = 2 where id = #{orderId}")
+    int saveOrderPayed(int orderId);
 
 
     @Select("select * from `order`,user where user.person_id = `order`.person_id and user.username = #{userName}")

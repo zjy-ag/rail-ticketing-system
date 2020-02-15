@@ -108,4 +108,12 @@ public class OrderService {
     public Integer deleteOrder(Integer id){
         return orderDao.deleteOrder(id);
     }
+
+    public int saveOrderPaying(Order order){
+        return orderDao.saveOrderPaying(order);
+    }
+
+    public int saveOrderPayed(int orderId){
+        return orderDao.saveOrderPayed(orderId);
+    }
 }

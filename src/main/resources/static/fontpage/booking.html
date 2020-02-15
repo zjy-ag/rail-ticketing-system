@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>机票管理系统</title>
+    <title>高铁管理系统</title>
     <link rel="stylesheet" href="../css/plugins/bootstrap.min.css">
     <script src="../js/jquery.js"></script>
     <script src="../js/plugins/bootstrap.min.js"></script>
@@ -49,25 +49,49 @@
         var remain_seats = document.getElementById('remain_seats').innerHTML;
         document.getElementById('book_btns').style.display = "none";
         if (remain_seats > 0) {
+            //还有剩余票，执行下订单操作
+            var curTicket = JSON.parse(window.localStorage.getItem("curTicket"));
+            var person_id = JSON.parse(window.localStorage.getItem("userid"));
+            var json = {
+                "car_info_id": curTicket.id,
+                "person_id": person_id,
+            };
+            console.log(json);
+            $.ajax({
+                url:"http://localhost:8080/saveOrderPaying",
+                type:"POST",
+                contentType : 'application/json;charset=utf-8',
+                dataType: 'JSON',
+                data: JSON.stringify(json),
+                success:function (result) {
+                    if (result.code == 200 && result.data.message == "success"){
+                        window.localStorage.setItem("curOrderId", result.data.entity)
+                        alert("成功！请在15分钟内完成支付。");
+                        window.location.href = "pay.html";
+                    }else {
+                        alert(result.data.message);
+                    }
+                },
+            })
             document.getElementById('book_success').style.display = "block";
         } else {
             document.getElementById('book_failure').style.display = "block";
         }
-        window.location.href = "pay.html";
+
     }
 
     // ajax异步刷新页面
-    function PostData() {
-        $.ajax({
-            type: "POST",
-            url: "",
-            data: "",
-            success: function () {
-
-            }
-        });
-        return false; // 必须这一句，不然还会刷新页面
-    }
+    // function PostData() {;
+    //     $.ajax({
+    //         type: "POST",
+    //         url: "",
+    //         data: "",
+    //         success: function () {
+    //
+    //         }
+    //     });
+    //     return false; // 必须这一句，不然还会刷新页面
+    // }
 
 </script>
 
@@ -102,10 +126,8 @@
 
             <div id="book_btns" align="right">
                 <!--div内容右对齐-->
-                <form onsubmit="return PostData()" method="post" style="display: inline">
-                    <input class="btn btn-primary" style="width: 80px" value="确认" type="submit"
-                           onclick="pay()">
-                </form>
+                <button class="btn btn-primary" style="width: 80px" type="submit"
+                        onclick="pay()">确认</button>
                 <a href="" class="btn btn-danger" style="width: 80px" onclick="history.back();">返回</a>
             </div>
         </div>
@@ -119,43 +141,43 @@
                 <div class="row">
                     <div class="col-lg-4">
                         <label for="">姓名</label>
-                        <input id="trueName" type="text" class="form-control" placeholder="">
+                        <input readonly id="trueName" type="text" class="form-control" placeholder="">
                     </div>
                     <div class="col-lg-4">
                         <label for="">电话</label>
-                        <input id="phone" type="text" class="form-control" placeholder="">
+                        <input readonly id="phone" type="text" class="form-control" placeholder="">
                     </div>
                     <div class="col-lg-4">
                         <label for="">身份证号</label>
-                        <input id="identity" type="text" class="form-control" placeholder="">
+                        <input readonly id="identity" type="text" class="form-control" placeholder="">
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-lg-4">
                         <label for="">车次</label>
-                        <input id="carNum" type="text" class="form-control" placeholder="">
+                        <input readonly id="carNum" type="text" class="form-control" placeholder="">
                     </div>
                     <div class="col-lg-4">
                         <label for="">始发地</label>
-                        <input id="orginLocation" type="text" class="form-control" placeholder="">
+                        <input readonly id="orginLocation" type="text" class="form-control" placeholder="">
                     </div>
                     <div class="col-lg-4">
                         <label for="">目的地</label>
-                        <input id="destinationLocation" type="text" class="form-control" placeholder="">
+                        <input readonly id="destinationLocation" type="text" class="form-control" placeholder="">
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-lg-4">
                         <label for="">出发时间</label>
-                        <input id="startTime" type="text" class="form-control" placeholder="">
+                        <input readonly id="startTime" type="text" class="form-control" placeholder="">
                     </div>
                     <div class="col-lg-4">
                         <label for="">到达时间</label>
-                        <input id="reachTime" type="text" class="form-control" placeholder="">
+                        <input readonly id="reachTime" type="text" class="form-control" placeholder="">
                     </div>
                     <div class="col-lg-4">
                         <label for="">价格</label>
-                        <input id="ticketPrice" type="text" class="form-control" placeholder="">
+                        <input readonly id="ticketPrice" type="text" class="form-control" placeholder="">
                     </div>
                 </div><br/>
             </form>
@@ -173,10 +195,10 @@
 
             <div id="pay_btns" align="right">
                 <!--div内容右对齐-->
-                <form onsubmit="return PostData()" method="post" style="display: inline">
-                    <input class="btn btn-primary" style="width: 80px" value="购买" type="submit"
-                           onclick="confirm_info()">
-                </form>
+
+                <button class="btn btn-primary" style="width: 80px" value="购买" type="submit"
+                        onclick="confirm_info()">购买</button>
+                <a href="perInfo.html" class="btn btn-warning" style="width: 80px">去修改</a>
                 <a href="" class="btn btn-danger" style="width: 80px" onclick="history.back();">取消</a>
             </div>
         </div>
