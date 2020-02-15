@@ -12,6 +12,11 @@
         WHERE o.person_id = u.id AND o.car_info_id = t.id
     </select>
 
+
+    <select id="getOrder" resultType="com.code.rts.entity.OrderReturn"  parameterType="com.github.pagehelper.Page">
+        select * from `order`, `user`, `trips` where `user`.id = `order`.person_id and `order`.car_info_id = `trips`.id and user.username = #{userName}
+    </select>
+
     <!--根据id删除订单-->
     <delete id="deleteOrder" parameterType="Integer">
       DELETE FROM `order` WHERE id=#{id}

@@ -17,7 +17,7 @@
         <!-- Items -->
         <ul class="nav navbar-nav navbar-right">
             <li>
-                <a href="{% url 'booksystem:result' %}">
+                <a href="index.html">
                     <span class="glyphicon glyphicon-search" aria-hidden="true"></span>&nbsp; 购票
                 </a>
             </li>
@@ -25,8 +25,13 @@
                 <a href="#">欢迎您 <span id="user"></span> 先生/女士</a>
             </li>
             <li id="userBtn">
-                <a href="{% url 'booksystem:user_info' %}">
+                <a href="perInfo.html">
                     <span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp; 个人中心
+                </a>
+            </li>
+            <li id="orderBtn">
+                <a href="orderlist.html">
+                    <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>&nbsp; 我的订单
                 </a>
             </li>
             <li id="logoutBtn">
@@ -79,19 +84,6 @@
         }
 
     }
-
-    // ajax异步刷新页面
-    // function PostData() {;
-    //     $.ajax({
-    //         type: "POST",
-    //         url: "",
-    //         data: "",
-    //         success: function () {
-    //
-    //         }
-    //     });
-    //     return false; // 必须这一句，不然还会刷新页面
-    // }
 
 </script>
 

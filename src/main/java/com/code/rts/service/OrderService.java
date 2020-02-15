@@ -33,55 +33,58 @@ public class OrderService {
      * @param username
      * @return
      */
-    public Result getOrder(String username) {
-        Result result = new Result();
-        User user = new User();
-        List<OrderReturn> orderReturnList  = new ArrayList<OrderReturn>();
-        Trips trips = new Trips();
-
-        //获取订单列表
-        List<Order> orderdata= orderDao.getOrder(username);
-
-        if(orderdata!=null){
-
-            for(Order i:orderdata){
-                OrderReturn orderReturn = new OrderReturn();
-                user = orderDao.getUserinfo(i.getPersonId());
-                trips = tripsDao.gettrips(i.getCarInfoId());
-                orderReturn.setTrueName(user.getTrueName());
-                orderReturn.setIdCardNum(user.getIdCardNum());
-                orderReturn.setPhoneNum(user.getPhoneNum());
-                orderReturn.setCarNum(trips.getCarNum());
-                orderReturn.setDestinationLocation(trips.getDestinationLocation());
-                orderReturn.setOrginLocation(trips.getOrginLocation());
-                orderReturn.setTicketPrice(trips.getTicketPrice());
-                orderReturn.setTicketNum(trips.getTicketNum());
-                orderReturn.setStartTime(trips.getStartTime());
-                orderReturn.setReachTime(trips.getReachTime());
-                if (i.getStatus() == 1){
-                    orderReturn.setStatus("已支付");
-                }else if (i.getStatus() == 2){
-                    orderReturn.setStatus("等待支付");
-                }else if (i.getStatus() == 3){
-                    orderReturn.setStatus("已退票");
-                }
-//                orderReturn.setStartTime(orderReturn.getStartTime());
-//                orderReturn.setStartTime(trips.getStartTime());
-                orderReturnList.add(orderReturn);
-
-            }
-            result.setStateCode(200);
-            result.setMsg("Query succeed");
-            result.setData(orderReturnList);
-        }
-        else{
-//            result.setStateCode();
-            result.setStateCode(404);
-            result.setData(false);
-            result.setMsg("Query failed,no order");
-        }
-        return result;
+    public Page<OrderReturn> getOrder(String username){
+        return orderDao.getOrder(username);
     }
+//    public Result getOrder(String username) {
+//        Result result = new Result();
+//        User user = new User();
+//        List<OrderReturn> orderReturnList  = new ArrayList<OrderReturn>();
+//        Trips trips = new Trips();
+//
+//        //获取订单列表
+//        List<Order> orderdata= orderDao.getOrder(username);
+//
+//        if(orderdata!=null){
+//
+//            for(Order i:orderdata){
+//                OrderReturn orderReturn = new OrderReturn();
+//                user = orderDao.getUserinfo(i.getPersonId());
+//                trips = tripsDao.gettrips(i.getCarInfoId());
+//                orderReturn.setTrueName(user.getTrueName());
+//                orderReturn.setIdCardNum(user.getIdCardNum());
+//                orderReturn.setPhoneNum(user.getPhoneNum());
+//                orderReturn.setCarNum(trips.getCarNum());
+//                orderReturn.setDestinationLocation(trips.getDestinationLocation());
+//                orderReturn.setOrginLocation(trips.getOrginLocation());
+//                orderReturn.setTicketPrice(trips.getTicketPrice());
+//                orderReturn.setTicketNum(trips.getTicketNum());
+//                orderReturn.setStartTime(trips.getStartTime());
+//                orderReturn.setReachTime(trips.getReachTime());
+//                if (i.getStatus() == 1){
+//                    orderReturn.setStatus("已支付");
+//                }else if (i.getStatus() == 2){
+//                    orderReturn.setStatus("等待支付");
+//                }else if (i.getStatus() == 3){
+//                    orderReturn.setStatus("已退票");
+//                }
+////                orderReturn.setStartTime(orderReturn.getStartTime());
+////                orderReturn.setStartTime(trips.getStartTime());
+//                orderReturnList.add(orderReturn);
+//
+//            }
+//            result.setStateCode(200);
+//            result.setMsg("Query succeed");
+//            result.setData(orderReturnList);
+//        }
+//        else{
+////            result.setStateCode();
+//            result.setStateCode(404);
+//            result.setData(false);
+//            result.setMsg("Query failed,no order");
+//        }
+//        return result;
+//    }
 
     public Result changeOrder(int orderId, int tripsId) {
         Result result = null;

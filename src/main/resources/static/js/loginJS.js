@@ -61,18 +61,9 @@ function loginSubmit(){
 		dataType:'json',
 		success: function(data){
 			if (data.stateCode === 200){
-				//跳转到完善个人信息页面
-				console.log("loginSubmit函数提交的json信息处理后返回200，将username存储到localStorage。");
 				localStorage.setItem("username",data.data.username);//此处存的为json String格式的username
 				localStorage.setItem("userid",data.data.id);//此处存的为json String格式的userid
-				console.log("loginSubmit函数提交的json信息处理后返回200，准备跳转到完善个人信息的页面。" + data.data.username);//控制台输出信息
-				if(data.data.personId > 0){
-					window.location.href = 'index2.html'
-				}else{
-                    window.location.href = 'perInfo.html';
-				}
-
-
+				window.location.href = 'index.html'
 			}
 			else{
 				//异常处理页面

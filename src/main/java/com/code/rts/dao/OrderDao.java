@@ -64,8 +64,12 @@ public interface OrderDao {
     int saveOrderPayed(int orderId);
 
 
-    @Select("select * from `order`,user where user.person_id = `order`.person_id and user.username = #{userName}")
-    List<Order> getOrder(String userName);
+    /**
+     * 通过用户查询订单（前台使用）
+     * @param userName
+     * @return
+     */
+    Page<OrderReturn> getOrder(String userName);
 
 
     @Update("update `order` set status = 2 where person_id=#{personId} and car_info_id = (select id from trips where car_num = #{carNum}" +

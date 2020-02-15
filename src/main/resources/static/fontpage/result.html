@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>机票管理系统</title>
+    <title>高铁售票系统</title>
     <link rel="stylesheet" href="../css/plugins/bootstrap.min.css">
     <script src="../js/jquery.js"></script>
     <script src="../js/plugins/bootstrap.min.js"></script>
@@ -12,12 +12,12 @@
     <div class="container-fluid">
         <!-- Header -->
         <div class="navbar-header">
-            <a class="navbar-brand" href="{% url 'booksystem:index' %}">高铁购票系统</a>
+            <a class="navbar-brand" href="index.html">高铁购票系统</a>
         </div>
         <!-- Items -->
         <ul class="nav navbar-nav navbar-right">
             <li>
-                <a href="{% url 'booksystem:result' %}">
+                <a href="index.html">
                     <span class="glyphicon glyphicon-search" aria-hidden="true"></span>&nbsp; 购票
                 </a>
             </li>
@@ -25,8 +25,13 @@
                 <a href="#">欢迎您 <span id="user"></span> 先生/女士</a>
             </li>
             <li id="userBtn">
-                <a href="{% url 'booksystem:user_info' %}">
+                <a href="perInfo.html">
                     <span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp; 个人中心
+                </a>
+            </li>
+            <li id="orderBtn">
+                <a href="orderlist.html">
+                    <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>&nbsp; 我的订单
                 </a>
             </li>
             <li id="logoutBtn">

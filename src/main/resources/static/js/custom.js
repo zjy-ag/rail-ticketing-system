@@ -1370,7 +1370,7 @@ function payed(){
 		success:function (result) {
 			if (result.code == 200 && result.data.message == "success"){
 				window.localStorage.removeItem('curTicket');
-				window.location.href = "orderForm.html";
+				window.location.href = "orderlist.html";
 			}else {
 				alert(result.data.message);
 			}
