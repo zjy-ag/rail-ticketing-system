@@ -1,6 +1,7 @@
 package com.code.rts.dao;
 
 import com.code.rts.entity.*;
+import com.github.pagehelper.Page;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -21,6 +22,12 @@ public interface TripsDao {
      * */
     @Select("select * from trips where orgin_location like CONCAT('%',#{orginLocation},'%') and destination_location like CONCAT('%',#{destinationLocation},'%') and start_time like CONCAT('%',#{startTime},'%')")
     List<Trips> getAlltrips(Trips trips);
+
+    /**
+     * 分页查询全部车票
+     * @return
+     */
+    Page<Trips> getAllTripsForAdmin();
 
     /***
      * @param id

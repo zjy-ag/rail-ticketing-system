@@ -8,6 +8,7 @@ import com.code.rts.dao.UserDao;
 import com.code.rts.entity.Order;
 import com.code.rts.entity.Trips;
 import com.code.rts.entity.User;
+import com.github.pagehelper.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -41,6 +42,11 @@ public class TripsService {
         }
         return result;
     }
+
+    public Page<Trips> getAllTripsForAdmin() {
+        return tripsDao.getAllTripsForAdmin();
+    }
+
 
     public Result getAimtrips(Trips trips) {
         Result result = new Result();

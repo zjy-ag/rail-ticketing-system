@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--对应接口，写入sql语句-->
+
+<mapper namespace="com.code.rts.dao.TripsDao">
+
+
+    <select id="getAllTripsForAdmin" resultType="com.code.rts.entity.Trips"  parameterType="com.github.pagehelper.Page">
+        SELECT *
+        FROM `trips`
+    </select>
+
+</mapper>
