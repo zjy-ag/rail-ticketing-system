@@ -12,4 +12,29 @@
         FROM `trips`
     </select>
 
+    <update id="updateTripForAdmin" parameterType="com.code.rts.entity.Trips">
+        UPDATE `trips` SET
+        <if test="orginLocation != null and orginLocation != ''">
+            orgin_location = #{orginLocation}
+        </if>
+        <if test="destinationLocation != null and destinationLocation != ''">
+            ,destination_location = #{destinationLocation}
+        </if>
+        <if test="startTime != null and startTime != ''">
+            ,start_time = #{startTime}
+        </if>
+        <if test="reachTime != null and reachTime != ''">
+            ,reach_time = #{reachTime}
+        </if>
+        <if test="carNum != null and carNum != ''">
+            ,car_num = #{carNum}
+        </if>
+        <if test="ticketPrice != null and ticketPrice != ''">
+            ,ticket_price = #{ticketPrice}
+        </if>
+        <if test="ticketNum != null and ticketNum != ''">
+            ,ticket_num = #{ticketNum}
+        </if>
+        where id = #{id}
+    </update>
 </mapper>

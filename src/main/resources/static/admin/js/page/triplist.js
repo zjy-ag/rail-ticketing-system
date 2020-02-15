@@ -152,7 +152,7 @@ $(function () {
         });
 
         /**
-         * 保存用户信息
+         * 保存车次信息
          */
         $("#trip_save_btn").click(function () {
             var orginLocation = $("#orginLocation_add_input").val();
@@ -164,7 +164,7 @@ $(function () {
             var ticketNum =$("#ticketNum_add_input").val();
 
 
-            //2.发送ajax请求保存员工
+            //2.发送ajax请求保存车次
             $.ajax({
                 url: "http://localhost:8080/saveTrip",
                 type: "POST",
@@ -197,25 +197,25 @@ $(function () {
         $(document).on("click",".edit_btn",function () {
             //清除表单数据
             $("#tripReviseModal form")[0].reset();
-            $("#username_revise_input").next("span").text("");
 
             var id= $(this).parent().parent().children("td").eq(1).text();
             //将id的值传递给修改按钮的属性，方便发送Ajax请求
             $("#trip_revise_btn").attr("edit-id",id);
-            var username=$(this).parent().parent().children("td").eq(2).text();
-            var truename=$(this).parent().parent().children("td").eq(3).text();
-            var idCardNum=$(this).parent().parent().children("td").eq(4).text();
-            var phone=$(this).parent().parent().children("td").eq(5).text();
-            var age=$(this).parent().parent().children("td").eq(6).text();
-            var sex=$(this).parent().parent().children("td").eq(7).text();
+            var orginLocation=$(this).parent().parent().children("td").eq(2).text();
+            var destinationLocation=$(this).parent().parent().children("td").eq(3).text();
+            var startTime=$(this).parent().parent().children("td").eq(4).text();
+            var reachTime=$(this).parent().parent().children("td").eq(5).text();
+            var carNum=$(this).parent().parent().children("td").eq(6).text();
+            var ticketPrice=$(this).parent().parent().children("td").eq(7).text();
+            var ticketNum=$(this).parent().parent().children("td").eq(8).text();
 
-
-            $("#username_revise_input").val(username);
-            $("#truename_revise_input").val(truename);
-            $("#idCardNum_revise_input").val(idCardNum);
-            $("#phone_revise_input").val(phone);
-            $("#age_revise_input").val(age);
-            $("#tripReviseModal input[name=sex]").val([sex]);
+            $("#orginLocation_revise_input").val(orginLocation);
+            $("#destinationLocation_revise_input").val(destinationLocation);
+            $("#startTime_revise_input").val(startTime);
+            $("#reachTime_revise_input").val(reachTime);
+            $("#carNum_revise_input").val(carNum);
+            $("#ticketPrice_revise_input").val(ticketPrice);
+            $("#ticketNum_revise_input").val(ticketNum);
             $("#tripReviseModal").modal({
                 backdrop: "static"
             })
@@ -229,17 +229,17 @@ $(function () {
             //这里未使用如上所述方法
             //获取编辑后的
             var id = $(this).attr("edit-id");
-            var username = $("#username_revise_input").val();
-            var truename = $("#truename_revise_input").val();
-            var sex = $("#tripReviseModal input[name=sex]").val();
-            alert(sex);
-            var idCardNum =$("#idCardNum_revise_input").val();
-            var phone =$("#phone_revise_input").val();
-            var age =$("#age_revise_input").val();
+            var orginLocation = $("#orginLocation_revise_input").val();
+            var destinationLocation = $("#destinationLocation_revise_input").val();
+            var startTime = $("#startTime_revise_input").val();
+            var reachTime =$("#reachTime_revise_input").val();
+            var carNum =$("#carNum_revise_input").val();
+            var ticketPrice =$("#ticketPrice_revise_input").val();
+            var ticketNum =$("#ticketNum_revise_input").val();
             $.ajax({
-                url:"http://localhost:8080/updateTrip",
+                url:"http://localhost:8080/updateTripForAdmin",
                 type:"POST",
-                data:JSON.stringify({id:id,username:username,trueName:truename,sex:sex,idCardNum:idCardNum,phoneNum:phone,age:age}),
+                data:JSON.stringify({id:id,orginLocation:orginLocation,destinationLocation:destinationLocation,startTime:startTime,reachTime:reachTime,carNum:carNum,ticketPrice:ticketPrice,ticketNum:ticketNum}),
                 dataType:"json",
                 contentType:"application/json;charset=UTF-8",
                 success:function () {
@@ -247,7 +247,6 @@ $(function () {
                     $("#tripReviseModal").modal('hide');
                     //2.来到当前页，显示刚才保存的数据
                     to_page(currentPage);
-
                 }
             })
 

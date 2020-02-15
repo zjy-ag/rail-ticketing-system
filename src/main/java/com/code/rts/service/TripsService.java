@@ -158,4 +158,8 @@ public class TripsService {
         return tripsDao.saveTrip(trips);
     }
 
+    public int updateTripForAdmin(Trips trips){
+        return tripsDao.updateTripForAdmin(trips);
+    }
+
 }

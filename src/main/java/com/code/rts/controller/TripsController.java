@@ -99,4 +99,29 @@ public class TripsController {
         return modelMap;
     }
 
+    /**
+     * 修改用户信息
+     */
+
+    @RequestMapping(value = "/updateTripForAdmin",method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> updateTripForAdmin(@RequestBody Trips trips){
+        int i = tripsService.updateTripForAdmin(trips);
+        Map<String, Object> modelMap = new HashMap<>();
+        if (i == 1){
+            modelMap.put("code", 200);
+            Map<String, Object> dataMap = new HashMap<>();
+            dataMap.put("message", "success");
+            dataMap.put("entity", null);
+            modelMap.put("data", dataMap);
+        }else {
+            modelMap.put("code", 200);
+            Map<String, Object> dataMap = new HashMap<>();
+            dataMap.put("message", "更新车次信息失败");
+            dataMap.put("entity", null);
+            modelMap.put("data", dataMap);
+        }
+        return modelMap;
+    }
+
 }

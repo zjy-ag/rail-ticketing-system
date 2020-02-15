@@ -85,4 +85,11 @@ public interface TripsDao {
 
     @Select("select * from trips where car_num = #{carNum} and start_time = #{startTime}")
     Trips getTripsInfoByCarNumAndStartTime(@Param("carNum") String carNum, @Param("startTime") String startTime);
+
+    /**
+     * 更新用户信息
+     * @param trips
+     * @return
+     */
+    int updateTripForAdmin(Trips trips);
 }

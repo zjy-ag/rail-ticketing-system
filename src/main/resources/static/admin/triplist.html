@@ -149,6 +149,13 @@
                                 <span  class="help-block"></span>
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">数量</label>
+                            <div class="col-sm-10">
+                                <input type="number" name="ticketNum" class="form-control" id="ticketNum_add_input" placeholder="数量">
+                                <span  class="help-block"></span>
+                            </div>
+                        </div>
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -165,54 +172,57 @@
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                             aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="tripReviseModalLabel">修改用户</h4>
+                    <h4 class="modal-title" id="tripReviseModalLabel">修改车次信息</h4>
                 </div>
                 <div class="modal-body">
                     <form class="form-horizontal">
                         <div class="form-group">
-                            <label class="col-sm-2 control-label">用户名</label>
+                            <label class="col-sm-2 control-label">起始站</label>
                             <div class="col-sm-10">
-                                <input type="text" name="username" class="form-control" id="username_revise_input" placeholder="用户名">
+                                <input type="text" name="orginLocation" class="form-control" id="orginLocation_revise_input" placeholder="起始站">
                                 <span class="help-block"></span>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-2 control-label">真实姓名</label>
+                            <label class="col-sm-2 control-label">目的站</label>
                             <div class="col-sm-10">
-                                <input type="text" name="truename" class="form-control" id="truename_revise_input" placeholder="姓名2-16位中英文、数字">
+                                <input type="text" name="destinationLocation" class="form-control" id="destinationLocation_revise_input" placeholder="目的站">
                                 <span class="help-block"></span>
                             </div>
                         </div>
-
                         <div class="form-group">
-                            <label class="col-sm-2 control-label">性别</label>
+                            <label class="col-sm-2 control-label">发车时间</label>
                             <div class="col-sm-10">
-                                <label class="radio-inline">
-                                    <input type="radio" name="sex" id="sex1_revise_input" value="男" checked="checked"> 男
-                                </label>
-                                <label class="radio-inline">
-                                    <input type="radio" name="sex" id="sex2_revise_input" value="女"> 女
-                                </label>
+                                <input type="text" name="startTime" class="form-control" id="startTime_revise_input" placeholder="发车时间">
+                                <span class="help-block"></span>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-2 control-label">身份证号码</label>
+                            <label class="col-sm-2 control-label">发车时间</label>
                             <div class="col-sm-10">
-                                <input type="text" name="idCardNum" class="form-control" id="idCardNum_revise_input" placeholder="请输入身份证号码">
+                                <input type="text" name="reachTime" class="form-control" id="reachTime_revise_input" placeholder="发车时间">
+                                <span class="help-block"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">车次号</label>
+                            <div class="col-sm-10">
+                                <input type="text" name="carNum" class="form-control" id="carNum_revise_input" placeholder="车次时间">
                                 <span  class="help-block"></span>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-2 control-label">电话号码</label>
+                            <label class="col-sm-2 control-label">价格</label>
                             <div class="col-sm-10">
-                                <input type="text" name="phone" class="form-control" id="phone_revise_input" placeholder="请输入电话号码">
+                                <input type="number" name="ticketPrice" class="form-control" id="ticketPrice_revise_input" placeholder="价格">
                                 <span  class="help-block"></span>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-2 control-label">年龄</label>
+                            <label class="col-sm-2 control-label">数量</label>
                             <div class="col-sm-10">
-                                <input type="text" name="age" class="form-control" id="age_revise_input" placeholder="请输入年龄">
+                                <input type="number" name="ticketNum" class="form-control" id="ticketNum_revise_input" placeholder="数量">
+                                <span  class="help-block"></span>
                             </div>
                         </div>
                     </form>
