@@ -3,11 +3,11 @@ $(function () {
     //1.显示所有数据
     to_page(1);
     //2.添加用户
-    addUser();
+    addTrip();
     //3.修改用户
-    reviseUser();
+    reviseTrip();
     //4.单个删除用户
-    deleteUser();
+    deleteTrip();
 
     /**
      * 1.显示所用用户
@@ -155,29 +155,20 @@ $(function () {
          * 保存用户信息
          */
         $("#trip_save_btn").click(function () {
-            var username = $("#username_add_input").val();
-            var password = $("#password_add_input").val();
-            var truename = $("#truename_add_input").val();
-            var sex =$("input[name=sex]:checked").val();
-            var idCardNum =$("#idCardNum_add_input").val();
-            var phone =$("#phone_add_input").val();
-            var age =$("#age_add_input").val();
+            var orginLocation = $("#orginLocation_add_input").val();
+            var destinationLocation = $("#destinationLocation_add_input").val();
+            var startTime = $("#startTime_add_input").val();
+            var reachTime =$("#reachTime_add_input").val();
+            var carNum =$("#carNum_add_input").val();
+            var ticketPrice =$("#ticketPrice_add_input").val();
+            var ticketNum =$("#ticketNum_add_input").val();
 
-            var id= $(this).parent().parent().children("td").eq(1).text();
-            //将id的值传递给修改按钮的属性，方便发送Ajax请求
-            $("#trip_revise_btn").attr("edit-id",id);
-            var username=$(this).parent().parent().children("td").eq(2).text();
-            var truename=$(this).parent().parent().children("td").eq(3).text();
-            var idCardNum=$(this).parent().parent().children("td").eq(4).text();
-            var phone=$(this).parent().parent().children("td").eq(5).text();
-            var age=$(this).parent().parent().children("td").eq(6).text();
-            var sex=$(this).parent().parent().children("td").eq(7).text();
 
             //2.发送ajax请求保存员工
             $.ajax({
                 url: "http://localhost:8080/saveTrip",
                 type: "POST",
-                data: JSON.stringify({username:username,password:password, trueName:truename,sex:sex,idCardNum:idCardNum,phoneNum:phone,age:age}),
+                data: JSON.stringify({orginLocation:orginLocation,destinationLocation:destinationLocation, startTime:startTime,reachTime:reachTime,carNum:carNum,ticketPrice:ticketPrice,ticketNum:ticketNum}),
                 dataType:"json",
                 contentType:"application/json;charset=UTF-8",
                 success: function (result) {
@@ -199,7 +190,7 @@ $(function () {
     /**
      * 3.修改用户
      */
-    function reviseUser() {
+    function reviseTrip() {
         //为编辑按钮绑定弹出modal框事件
         //1.因为在按钮创建之前就绑定了click，所以用普通click方法绑定不上
 
@@ -246,7 +237,7 @@ $(function () {
             var phone =$("#phone_revise_input").val();
             var age =$("#age_revise_input").val();
             $.ajax({
-                url:"http://localhost:8080/updateUser",
+                url:"http://localhost:8080/updateTrip",
                 type:"POST",
                 data:JSON.stringify({id:id,username:username,trueName:truename,sex:sex,idCardNum:idCardNum,phoneNum:phone,age:age}),
                 dataType:"json",
@@ -266,7 +257,7 @@ $(function () {
     /**
      * 4.删除用户
      */
-    function deleteUser() {
+    function deleteTrip() {
         $(document).on("click",".delete_btn",function () {
             //1.弹出确认删除对话框
             var username=$(this).parents("tr").find("td:eq(2)").text();
@@ -275,7 +266,7 @@ $(function () {
                 // alert(id);
                 //确认，发送ajax请求删除
                 $.ajax({
-                    url:"http://localhost:8080/deleteUser/"+id,
+                    url:"http://localhost:8080/deleteTrip/"+id,
                     type:"DELETE",
                     success:function (result) {
                         if (result.code == 200 && result.data.message == "success"){

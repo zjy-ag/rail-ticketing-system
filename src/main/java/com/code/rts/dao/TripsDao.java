@@ -37,6 +37,14 @@ public interface TripsDao {
     Trips gettrips(int id);
 
     /**
+     * 在后台添加用户
+     * @param trips
+     * @return
+     */
+    @Insert("insert into `trips` (orgin_location, destination_location, start_time, reach_time, car_num, ticket_price, ticket_num) values(#{orginLocation}, #{destinationLocation}, #{startTime}, #{reachTime}, #{carNum}, #{ticketPrice}, #{ticketNum})")
+    int saveTrip(Trips trips);
+
+    /**
      *订单改签后改变旧车票信息
      * @param oldId
      * @return

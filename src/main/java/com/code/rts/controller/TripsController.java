@@ -7,6 +7,7 @@ import com.code.rts.entity.User;
 import com.code.rts.service.TripsService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -70,4 +71,32 @@ public class TripsController {
         }
         return modelMap;
     }
+
+    /**
+     * 保存车次信息
+     * @param trips
+     * @return
+     */
+    @Transactional
+    @RequestMapping(value = "/saveTrip",method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> saveUser(@RequestBody Trips trips){
+        int i = tripsService.saveTrip(trips);
+        Map<String, Object> modelMap = new HashMap<>();
+        if (i == 1){
+            modelMap.put("code", 200);
+            Map<String, Object> dataMap = new HashMap<>();
+            dataMap.put("message", "success");
+            dataMap.put("entity", null);
+            modelMap.put("data", dataMap);
+        }else {
+            modelMap.put("code", 200);
+            Map<String, Object> dataMap = new HashMap<>();
+            dataMap.put("message", "添加车次失败");
+            dataMap.put("entity", null);
+            modelMap.put("data", dataMap);
+        }
+        return modelMap;
+    }
+
 }

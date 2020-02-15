@@ -149,4 +149,13 @@ public class TripsService {
     }
 
 
+    /**
+     * 保存车次
+     * @param trips
+     * @return
+     */
+    public int saveTrip(Trips trips) {
+        return tripsDao.saveTrip(trips);
+    }
+
 }
