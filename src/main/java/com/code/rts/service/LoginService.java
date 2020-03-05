@@ -21,18 +21,18 @@ public class LoginService {
 
         if (user == null){
             result.setData(null);
-            result.setMsg("username is not exist");
+            result.setMsg("用户名/密码错误");
             result.setStateCode(404);
             return result;
         }
         if (!user.getPassword().equals(userData.getPassword())){
-            result.setMsg("password is wrong");
+            result.setMsg("用户名/密码错误");
             result.setStateCode(404);
 
             return result;
         }
         result.setStateCode(200);
-        result.setMsg(" login in success");
+        result.setMsg("success");
         result.setData(user);
         return result;
     }

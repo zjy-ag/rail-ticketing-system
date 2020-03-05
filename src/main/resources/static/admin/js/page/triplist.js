@@ -56,11 +56,13 @@ $(function () {
             var ticketPrice = $("<td></td>").append(item.ticketPrice);
             var ticketNum = $("<td></td>").append(item.ticketNum);
 
+            //查看途经站信息
+            var button0 = $("<td></td>").append($("<button></button>").addClass("btn btn-default btn-sm look_btn").append($("<span></span>").attr("aria-hidden", true)).append("查看"));
             var button1 = $("<button></button>").addClass("btn btn-primary btn-sm edit_btn").append($("<span></span>").addClass("glyphicon glyphicon-pencil").attr("aria-hidden", true)).append("编辑");
             var button2 = $("<button></button>").addClass("tn btn-danger btn-sm delete_btn").append($("<span></span>").addClass("glyphicon glyphicon-trash").attr("aria-hidden", true)).append("删除");
             var td_btn = $("<td></td>").append(button1).append(" ").append(button2);
             $("<tr></tr>").append(checkBox).append(id).append(orginLocation).append(destinationLocation).append(startTime).append(reachTime).append(carNum).append(ticketPrice).append(ticketNum)
-                .append(td_btn ).appendTo("#trips_table tbody");
+                .append(button0).append(td_btn ).appendTo("#trips_table tbody");
 
         })
     }
@@ -275,6 +277,19 @@ $(function () {
                     }
                 })
             }
+        })
+    }
+
+    /**
+     * 5.查看途经站
+     */
+    function deleteTrip() {
+        $(document).on("click",".look_btn",function () {
+            //1.得到车次号
+            var carNum=$(this).parents("tr").find("td:eq(6)").text();
+            var storage=window.localStorage;
+            storage.setItem("viaCarNum", carNum);
+            window.location.href = "tripvialist.html";
         })
     }
 });

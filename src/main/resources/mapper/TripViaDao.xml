@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--对应接口，写入sql语句-->
+
+<mapper namespace="com.code.rts.dao.TripsViaDao">
+
+    <update id="updateTripsVia" parameterType="com.code.rts.entity.TripsVia">
+        UPDATE `trips_via` SET station_name = #{stationName}, start_time = #{startTime}, reach_time = #{reachTime}, order_num = #{orderNum}
+        where id = #{id}
+    </update>
+
+    <!--根据id删除用户-->
+    <delete id="deleteTripVia" parameterType="Integer">
+      DELETE FROM `trips_via` WHERE id=#{id}
+    </delete>
+</mapper>
