@@ -52,8 +52,14 @@ $(function () {
             var id = $("<td></td>").append(item.id);
             var orginLocation = $("<td></td>").append(item.orginLocation);
             var destinationLocation = $("<td></td>").append(item.destinationLocation);
-            var startTime = $("<td></td>").append(item.startTime);
-            var reachTime = $("<td></td>").append(item.reachTime);
+            var startTimeText = item.startTime;
+            //去除时间后面的.0
+            startTimeText = startTimeText.substring(0, startTimeText.lastIndexOf(':'));
+            var startTime = $("<td></td>").append(startTimeText);
+            var reachTimeText = item.reachTime;
+            //去除时间后面的.0
+            reachTimeText = reachTimeText.substring(0, reachTimeText.lastIndexOf(':'));
+            var reachTime = $("<td></td>").append(reachTimeText);
             var carNum = $("<td></td>").append(item.carNum);
             var ticketPrice = $("<td></td>").append(item.ticketPrice);
             var ticketNum = $("<td></td>").append(item.ticketNum);

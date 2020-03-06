@@ -22,14 +22,14 @@ if (queryResult != ''){
             '        </div>\n' +
             '        <div class="col-sm-3">\n' +
             '            <p style="padding: 10px">\n' +
-            '                <span style="font-size: xx-large">' + queryResult[i].startTime.substring(11, 18) + '</span>\n' +
+            '                <span style="font-size: xx-large">' + queryResult[i].startTime.substring(11, 16) + '</span>\n' +
             '                <br>\n' +
             '                ' + queryResult[i].orginLocation + '\n' +
             '            </p>\n' +
             '        </div>\n' +
             '        <div class="col-sm-3">\n' +
             '            <p style="padding: 10px">\n' +
-            '                <span style="font-size: xx-large">' + queryResult[i].reachTime.substring(11, 18) + '</span>\n' +
+            '                <span style="font-size: xx-large">' + queryResult[i].reachTime.substring(11, 16) + '</span>\n' +
             '                <br>\n' +
             '                ' + queryResult[i].destinationLocation + '\n' +
             '            </p>\n' +
@@ -79,11 +79,18 @@ $(document).on("click",".via-btn",function () {
                 $.each(tripsvia, function (index, item) {
                     //alert(index);
                     var stationName = $("<td></td>").append(item.stationName);
-                    var reachTime = $("<td></td>").append(item.reachTime);
-                    var startTime = $("<td></td>").append(item.startTime);
-                    var orderNum = $("<td></td>").append(item.orderNum);
+                    var reachTimeText = item.reachTime;
+                    reachTimeText = reachTimeText.substring(0, reachTimeText.lastIndexOf(':'));
+                    if (reachTimeText == "00:00"){
+                        reachTimeText = "-----";
+                    }
+                    var reachTime = $("<td></td>").append(reachTimeText);
+                    var startTimeText = item.startTime;
+                    startTimeText = startTimeText.substring(0, startTimeText.lastIndexOf(':'));
+                    var startTime = $("<td></td>").append(startTimeText);
+                    //var orderNum = $("<td></td>").append(item.orderNum);
 
-                    $("<tr></tr>").append(stationName).append(reachTime).append(startTime).append(orderNum)
+                    $("<tr></tr>").append(stationName).append(reachTime).append(startTime)
                         .appendTo("#trips_via_table tbody");
                 })
                 $("#tripViaShowModal").modal({

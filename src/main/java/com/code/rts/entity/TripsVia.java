@@ -13,9 +13,9 @@ public class TripsVia {
     private Integer id;
     private String carNum;
     private String stationName;
-//    @DateTimeFormat(pattern="yyyy-MM-dd hh:mm:ss")
-    private String startTime;
-//    @DateTimeFormat(pattern="yyyy-MM-dd hh:mm:ss")
+    //    @DateTimeFormat(pattern="yyyy-MM-dd hh:mm:ss")
+    private  String startTime;
+    //    @DateTimeFormat(pattern="yyyy-MM-dd hh:mm:ss")
     private String reachTime;
     private Integer orderNum;
 

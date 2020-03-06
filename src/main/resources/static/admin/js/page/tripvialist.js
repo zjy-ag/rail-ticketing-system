@@ -47,15 +47,15 @@ $(function () {
             var carNum = $("<td></td>").addClass("hidden").append(item.carNum);
             var id = $("<td></td>").append(item.id);
             var stationName = $("<td></td>").append(item.stationName);
-            var startTime = $("<td></td>").append(item.startTime);
             var reachTime = $("<td></td>").append(item.reachTime);
+            var startTime = $("<td></td>").append(item.startTime);
             var orderNum = $("<td></td>").append(item.orderNum);
 
             //查看途经站信息
             var button1 = $("<button></button>").addClass("btn btn-primary btn-sm edit_btn").append($("<span></span>").addClass("glyphicon glyphicon-pencil").attr("aria-hidden", true)).append("编辑");
             var button2 = $("<button></button>").addClass("tn btn-danger btn-sm delete_btn").append($("<span></span>").addClass("glyphicon glyphicon-trash").attr("aria-hidden", true)).append("删除");
             var td_btn = $("<td></td>").append(button1).append(" ").append(button2);
-            $("<tr></tr>").append(checkBox).append(id).append(stationName).append(startTime).append(reachTime).append(orderNum).append(carNum)
+            $("<tr></tr>").append(checkBox).append(id).append(stationName).append(reachTime).append(startTime).append(orderNum).append(carNum)
                 .append(td_btn ).appendTo("#trips_via_table tbody");
 
         })
@@ -73,7 +73,8 @@ $(function () {
         $("#trip_via_add_modal_btn").click(function () {
             //清除表单数据
             $("#tripViaAddModal form")[0].reset();
-            var carNum = $('.edit_btn').parent().parent().children("td").eq(6).text();
+            var storage=window.localStorage;
+            var carNum = storage.getItem("viaCarNum");
             //将id的值传递给修改按钮的属性，方便发送Ajax请求
             $("#trip_via_save_btn").attr("save-id",carNum);
             $("#tripViaAddModal").modal({
@@ -95,7 +96,7 @@ $(function () {
             $.ajax({
                 url: "http://localhost:8080/saveTripVia",
                 type: "POST",
-                data: JSON.stringify({carNum:carNum,stationName:stationName, startTime:startTime,reachTime:reachTime,orderNum:orderNum}),
+                data: JSON.stringify({carNum:carNum,stationName:stationName,reachTime:reachTime, startTime:startTime,orderNum:orderNum}),
                 dataType:"json",
                 contentType:"application/json;charset=UTF-8",
                 success: function (result) {
@@ -195,15 +196,5 @@ $(function () {
         })
     }
 
-    /**
-     * 5.查看途经站
-     */
-    function deleteTrip() {
-        $(document).on("click",".delete_btn",function () {
-            //1.得到车次号
-            var carNum=$(this).parents("tr").find("td:eq(6)").text();
-            window.storage.setItem("viaCarNum", carNum);
-            window.location.href = "tripvialist.html";
-        })
-    }
+
 });
