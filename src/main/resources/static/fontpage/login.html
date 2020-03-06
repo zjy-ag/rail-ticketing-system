@@ -1,61 +1,64 @@
 <!DOCTYPE html>
-<html >
+<html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<title>登陆注册页面</title>
-<link rel="stylesheet" href="../css/styleLogin.css">
-<script src="http://libs.baidu.com/jquery/2.0.0/jquery.js"></script>> 
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+    <title>高铁售票系统 - 登录</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <link href="../css/plugins/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/plugins/font-awesome.css?v=4.4.0" rel="stylesheet">
+    <link href="../css/plugins/animate.css" rel="stylesheet">
+    <link href="../css/plugins/style.css" rel="stylesheet">
+    <link href="../css/plugins/login.css" rel="stylesheet">
+    <!--[if lt IE 9]>
+    <meta http-equiv="refresh" content="0;ie.html" />
+    <![endif]-->
+    <script>
+        if (window.top !== window.self) {
+            window.top.location = window.location;
+        }
+    </script>
+
 </head>
 
-<body>
-
-<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
-<link rel='stylesheet prefetch' href='https://fonts.googleapis.com/icon?family=Material+Icons'>
-
-
-<div class="cotn_principal">
-  <div class="cont_centrar">
-    <div class="cont_login">
-      <div class="cont_info_log_sign_up">
-        <div class="col_md_login">
-          <div class="cont_ba_opcitiy">
-            <h2>登陆</h2>
-            <p>在此处填写信息并登陆，初次使用的用户请先注册！</p>
-            <button class="btn_login" onClick="cambiar_login()">登陆</button>
-          </div>
+<body class="signin">
+    <div class="signinpanel">
+        <div class="row">
+            <div class="col-sm-12">
+                <form method="post" action="index.html">
+                    <h4 class="no-margins">登录：</h4>
+                    <p class="m-t-md">登录到高铁售票系统</p>
+                    <input type="text" class="form-control uname" name="username" id="username" placeholder="用户名" />
+                    <input type="password" class="form-control pword m-b" name="password" id="password" placeholder="密码" />
+                    <a href="register.html">没有账户？</a>
+                </form>
+                <button class="btn btn-success btn-block" onClick="loginSubmit()">登录</button>
+            </div>
         </div>
-        <div class="col_md_sign_up">
-          <div class="cont_ba_opcitiy">
-            <h2>注册</h2>
-            <p>在此处填写个人信息并且完成注册并且登陆后即可开始订票</p>
-            <button class="btn_sign_up" onClick="cambiar_sign_up()">注册</button>
-          </div>
+        <div class="signup-footer">
+            <div class="pull-left">
+                &copy; 高铁售票系统
+            </div>
         </div>
-      </div>
-      <div class="cont_back_info">
-        <div class="cont_img_back_grey"> <img src="../img/po.jpg" alt="" /> </div>
-      </div>
-      <div class="cont_forms" >
-        <div class="cont_img_back_"> <img src="../img/po.jpg" alt="" /> </div>
-        <div class="cont_form_login"> <a href="#" onClick="ocultar_login_sign_up()" ><i class="material-icons">&#xE5C4;</i></a>
-          <h2>登陆</h2>
-          <input type="text" id="username" placeholder="用户名" />
-          <input type="password" id="password" placeholder="密码" />
-          <button class="btn_login" onClick="loginSubmit()">登陆</button>
-        </div>
-        <div class="cont_form_sign_up"> <a href="#" onClick="ocultar_login_sign_up()"><i class="material-icons">&#xE5C4;</i></a>
-          <h2>注册</h2>
-          <input type="text" id="usernameSignup" placeholder="用户名" />
-          <input type="password" id="passwordSignup" placeholder="密码" />
-          <input type="password" id="repasswordSignup" placeholder="确认密码" />
-          <button class="btn_sign_up" onClick="signupSubmit()">注册</button>
-        </div>
-      </div>
     </div>
-  </div>
-</div>
-
-<script src="../js/loginJS.js"></script>
-
 </body>
+<!-- 全局js -->
+<script src="../js/jquery.js?v=2.1.4"></script>
+<script src="../js/plugins/bootstrap.min.js?v=3.3.6"></script>
+<!-- iCheck -->
+<script src="../js/plugins/iCheck/icheck.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('.i-checks').iCheck({
+            checkboxClass: 'icheckbox_square-green',
+            radioClass: 'iradio_square-green',
+        });
+    });
+</script>
+<script src="../js/loginJS.js"></script>
+<script src="../js/custom.js"></script>
+
 </html>

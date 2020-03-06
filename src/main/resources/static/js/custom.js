@@ -1380,3 +1380,8 @@ function payed(){
 		}
 	})
 }
+
+function returnIndex() {
+	localStorage.clear();
+	window.location.href = "index.html";
+}

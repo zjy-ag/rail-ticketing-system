@@ -63,7 +63,7 @@ function loginSubmit(){
 			if (data.stateCode === 200){
 				localStorage.setItem("username",data.data.username);//此处存的为json String格式的username
 				localStorage.setItem("userid",data.data.id);//此处存的为json String格式的userid
-				window.location.href = 'index.html'
+				window.location.href = 'index.html';
 			}
 			else{
 				//异常处理页面
@@ -72,6 +72,7 @@ function loginSubmit(){
 			}
 		}
 	})
+	return false;
 }
 function signupSubmit(){
 	var username = $("#usernameSignup").val();

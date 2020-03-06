@@ -4,8 +4,11 @@
     <meta charset="UTF-8">
     <title>高铁售票系统</title>
     <link rel="stylesheet" href="../css/plugins/bootstrap.min.css">
+    <link href="../css/plugins/animate.css" rel="stylesheet">
+    <link href="../css/plugins/style.css?v=4.1.0" rel="stylesheet">
     <script src="../js/jquery.js"></script>
     <script src="../js/plugins/bootstrap.min.js"></script>
+
 </head>
 <body style="background-color: #f1f1f1">
 <nav class="nav navbar-inverse">
@@ -22,7 +25,7 @@
                 </a>
             </li>
             <li id="welcomeText">
-                <a href="#">欢迎您 <span id="user"></span> 先生/女士</a>
+                <a href="#">欢迎您 <span id="user"></span></a>
             </li>
             <li id="userBtn">
                 <a href="perInfo.html">
@@ -35,7 +38,7 @@
                 </a>
             </li>
             <li id="logoutBtn">
-                <a href="" onclick="returnIndex()">
+                <a href="javascript:void(0)" onclick="returnIndex()">
                     <span class="glyphicon glyphicon-off" aria-hidden="true"></span>&nbsp; 退出
                 </a>
             </li>
@@ -125,7 +128,6 @@
 </style>
 
 <div class="main">
-
     <!--搜索框-->
     <div class="search_form">
         <div class="col-sm-12" style="margin-top: 20px">
@@ -176,83 +178,52 @@
     <div class="search_result" id="searchResult"></div>
 
 </div>
-<script>
-    var username = window.localStorage.getItem("username");
-    if (username){
-        $('#user').text(username);
-        $("#loginBtn").hide();
-    }else {
-        $("#welcomeText").hide();
-        $("#userBtn").hide();
-        $("#logoutBtn").hide();
-    }
+<!--显示车次途经站的模态框 -->
+<div class="modal fade" id="tripViaShowModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="tripReviseModalLabel">查看车次途经站</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="table-responsive col-md-12">
+                        <table class="table table-hover" id="trips_via_table">
+                            <tbody>
+                            <thead>
+                            <tr>
+                                <th>站点名称</th>
+                                <th>到达时间</th>
+                                <th>出发时间</th>
+                                <th>次序</th>
+                            </tr>
+                            </thead>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
 
-</script>
-<script>
-    function returnIndex() {
-        localStorage.clear();
-    }
-</script>
-
-<!-- //Footer -->
-<script>
-    var queryResult = localStorage.getItem("queryResult")
-    queryResult = JSON.parse(queryResult);
-    if (queryResult != ''){
-        var showContent = '';
-        $("#search_failure").hide();
-        for (var i in queryResult){
-            showContent += '<div class="one_line">\n' +
-                '    <div class="col-sm-12">\n' +
-                '        <div class="col-sm-3">\n' +
-                '            <p class="flight_name">' + queryResult[i].carNum + '</p>\n' +
-                '        </div>\n' +
-                '        <div class="col-sm-3">\n' +
-                '            <p style="padding: 10px">\n' +
-                '                <span style="font-size: xx-large">' + queryResult[i].startTime.substring(11, 18) + '</span>\n' +
-                '                <br>\n' +
-                '                ' + queryResult[i].orginLocation + '\n' +
-                '            </p>\n' +
-                '        </div>\n' +
-                '        <div class="col-sm-3">\n' +
-                '            <p style="padding: 10px">\n' +
-                '                <span style="font-size: xx-large">' + queryResult[i].reachTime.substring(11, 18) + '</span>\n' +
-                '                <br>\n' +
-                '                ' + queryResult[i].destinationLocation + '\n' +
-                '            </p>\n' +
-                '        </div>\n' +
-                '        <div class="col-sm-3">\n' +
-                '            <p style="padding: 22px 0;">\n' +
-                '                                <span style="position:absolute;margin-top: 10px;margin-left: -50px;\n' +
-                '                                    font-size:smaller;color: gray;">剩余票数</span>\n' +
-                '                <span style="position:absolute;margin-top: 26px;margin-left: -47px;\n' +
-                '                                    font-size:smaller;color: gray">' + queryResult[i].ticketNum + '</span>\n' +
-                '                <sup>￥</sup>\n' +
-                '                <span style="color: #ff6600;font-size: xx-large;">' + queryResult[i].ticketPrice + '</span>\n' +
-                '                <sub></sub>&nbsp;\n' +
-                '                <button onclick="booking(queryResult[i])"\n' +
-                '                   class="btn btn-sm btn-warning">订票</button>\n' +
-                '            </p>\n' +
-                '        </div>\n' +
-                '    </div>\n' +
-                '</div>';
-        }
-        console.log(showContent);
-        $("#searchResult").text('');
-        $("#searchResult").append(showContent);
-    }else {
-        $('#searchResult').hide();
-    }
-</script>
 
 <script src="../js/plugins/bootstrap.min.js"></script>
 <script src="../js/plugins/slick.min.js"></script>
 <script src="../js/plugins/jquery.form.js"></script>
 <script src="../js/plugins/jquery.validate.min.js"></script>
 <script src="../js/custom.js"></script>
+<script src="../js/page/result.js"></script>
 <script language="JavaScript">
-    fillerIn()
+    fillerIn();
 </script>
+
+
 
 </body>
 </html>
