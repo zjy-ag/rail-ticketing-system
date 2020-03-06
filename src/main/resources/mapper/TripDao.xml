@@ -26,6 +26,9 @@
         <if test="reachTime != null and reachTime != ''">
             ,reach_time = #{reachTime}
         </if>
+        <if test="spanDays != null and spanDays != ''">
+            ,span_days = #{spanDays}
+        </if>
         <if test="carNum != null and carNum != ''">
             ,car_num = #{carNum}
         </if>

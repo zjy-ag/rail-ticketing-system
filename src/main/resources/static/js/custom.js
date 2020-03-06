@@ -564,93 +564,45 @@ $document
 								var orginLocation = $("#source").val();
 								var destinationLocation = $("#target").val();
 								var startTime = $("#date").val();
-								var json = {
-									"orginLocation" : orginLocation,
-									"destinationLocation" : destinationLocation,
-									"startTime" : startTime
+								var startDate = new Date(startTime);
+								var now = new Date();
+								var diffDays=startDate.getTime()-now.getTime();
+								var days=Math.floor(diffDays/(24*3600*1000));
+								if (days > 30){
+									alert("仅能购买30天以内的高铁票！")
+								}else {
+									var json = {
+										"orginLocation" : orginLocation,
+										"destinationLocation" : destinationLocation,
+									}
+
+									$.ajax({
+										type:"post",
+										url:base_url +'/getalltrips',
+										data:JSON.stringify(json),
+										contentType:'application/json;charset=utf-8',
+										dataType:'json',
+										success : function(data) {
+											if (data.stateCode === 200) {
+												window.localStorage.setItem("ticketItem", JSON.stringify(data.data))
+												$("#ticketTable").siblings(
+													'tr'
+												).remove()
+												// $("#ticketTable").html("");
+												// 修改成功
+												console.log(data.data)
+												localStorage.setItem("queryResult", JSON.stringify(data.data));
+												window.location.href = "result.html";
+											} else {
+												// 注册失败,错误信息在data.msg里面
+												alert("错误信息："
+													+ data.msg);
+
+											}
+										},
+									})
 								}
-
-                                $.ajax({
-                                    type:"post",
-                                    url:base_url +'/getalltrips',
-                                    data:JSON.stringify(json),
-                                    contentType:'application/json;charset=utf-8',
-                                    dataType:'json',
-                                    success : function(data) {
-                                        if (data.stateCode === 200) {
-											window.localStorage.setItem("ticketItem", JSON.stringify(data.data))
-                                            $("#ticketTable").siblings(
-                                                'tr'
-                                            ).remove()
-                                            // $("#ticketTable").html("");
-                                            // 修改成功
-                                            console.log(data.data)
-											localStorage.setItem("queryResult", JSON.stringify(data.data));
-											window.location.href = "result.html";
-                                        } else {
-                                            // 注册失败,错误信息在data.msg里面
-                                            alert("错误信息："
-                                                + data.msg);
-
-                                        }
-                                    },
-                                })
-								// $(form)
-								// 		.ajaxSubmit(
-								// 				{
-								// 					type : 'POST',
-								// 					url : 'http://localhost:8080/getalltrips',
-								// 					data : JSON.stringify(json),
-								// 					contentType : 'application/json;charset=utf-8',
-								// 					dataType : 'json',
-								// 					success : function(data) {
-								// 						if (data.stateCode == "200") {
-								// 							// 修改成功
-                                //
-								// 							// 在表格中呈现数据
-								// 							for (var i in data.List) {
-								// 								var tr;
-								// 								tr = '<td>'
-								// 										+ data.List[i].orginLocation
-								// 										+ '</td>'
-								// 										+ '<td>'
-								// 										+ data.List[i].startTime
-								// 										+ '</td>'
-								// 										+ '<td>'
-								// 										+ data.List[i].destinationLocation
-								// 										+ '</td>'
-								// 										+ '<td>'
-								// 										+ data.List[i].reachTime
-								// 										+ '</td>'
-								// 										+ '<td>'
-								// 										+ data.List[i].carNum
-								// 										+ '</td>'
-								// 										+ '<td>'
-								// 										+ data.List[i].ticketPrice
-								// 										+ '</td>'
-								// 										+ '<td>'
-								// 										+ data.List[i].ticketNum
-								// 										+ '</td>'
-								// 										+ '<td>'
-								// 										+ '<button onclick="pay(data.List[i])"></button>'
-								// 										+ '</td>';
-								// 								$("ticketTable")
-								// 										.append(
-								// 												'<tr>'
-								// 														+ tr
-								// 														+ '</tr>');
-								// 							}
-                                //
-								// 						} else {
-								// 							// 注册失败,错误信息在data.msg里面
-								// 							alert("错误信息："
-								// 									+ data.msg);
-                                //
-								// 						}
-								// 					},
-								// 					error : function() {
-								// 					}
-								// 				});
+								return false;
 							}
 						});
 			}

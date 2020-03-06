@@ -20,7 +20,7 @@ public interface TripsDao {
      * @param trips
      * @return
      * */
-    @Select("select * from trips where orgin_location like CONCAT('%',#{orginLocation},'%') and destination_location like CONCAT('%',#{destinationLocation},'%') and start_time like CONCAT('%',#{startTime},'%')")
+    @Select("select * from trips where orgin_location like CONCAT('%',#{orginLocation},'%') and destination_location like CONCAT('%',#{destinationLocation},'%')")
     List<Trips> getAlltrips(Trips trips);
 
     /**
@@ -37,11 +37,11 @@ public interface TripsDao {
     Trips gettrips(int id);
 
     /**
-     * 在后台添加用户
+     * 在后台添加车次
      * @param trips
      * @return
      */
-    @Insert("insert into `trips` (orgin_location, destination_location, start_time, reach_time, car_num, ticket_price, ticket_num) values(#{orginLocation}, #{destinationLocation}, #{startTime}, #{reachTime}, #{carNum}, #{ticketPrice}, #{ticketNum})")
+    @Insert("insert into `trips` (orgin_location, destination_location, start_time, reach_time, span_days, car_num, ticket_price, ticket_num) values(#{orginLocation}, #{destinationLocation}, #{startTime}, #{reachTime}, #{spanDays}, #{carNum}, #{ticketPrice}, #{ticketNum})")
     int saveTrip(Trips trips);
 
     /**

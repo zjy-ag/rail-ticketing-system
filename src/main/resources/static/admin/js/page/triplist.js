@@ -60,6 +60,7 @@ $(function () {
             //去除时间后面的.0
             reachTimeText = reachTimeText.substring(0, reachTimeText.lastIndexOf(':'));
             var reachTime = $("<td></td>").append(reachTimeText);
+            var spanDays = $("<td></td>").append(item.spanDays);
             var carNum = $("<td></td>").append(item.carNum);
             var ticketPrice = $("<td></td>").append(item.ticketPrice);
             var ticketNum = $("<td></td>").append(item.ticketNum);
@@ -69,7 +70,7 @@ $(function () {
             var button1 = $("<button></button>").addClass("btn btn-primary btn-sm edit_btn").append($("<span></span>").addClass("glyphicon glyphicon-pencil").attr("aria-hidden", true)).append("编辑");
             var button2 = $("<button></button>").addClass("btn btn-danger btn-sm delete_btn").append($("<span></span>").addClass("glyphicon glyphicon-trash").attr("aria-hidden", true)).append("删除");
             var td_btn = $("<td></td>").append(button1).append(" ").append(button2);
-            $("<tr></tr>").append(checkBox).append(id).append(orginLocation).append(destinationLocation).append(startTime).append(reachTime).append(carNum).append(ticketPrice).append(ticketNum)
+            $("<tr></tr>").append(checkBox).append(id).append(orginLocation).append(destinationLocation).append(startTime).append(reachTime).append(spanDays).append(carNum).append(ticketPrice).append(ticketNum)
                 .append(button0).append(td_btn ).appendTo("#trips_table tbody");
 
         })
@@ -169,6 +170,7 @@ $(function () {
             var destinationLocation = $("#destinationLocation_add_input").val();
             var startTime = $("#startTime_add_input").val();
             var reachTime =$("#reachTime_add_input").val();
+            var spanDays = $("#spanDays_add_input").val();
             var carNum =$("#carNum_add_input").val();
             var ticketPrice =$("#ticketPrice_add_input").val();
             var ticketNum =$("#ticketNum_add_input").val();
@@ -178,7 +180,7 @@ $(function () {
             $.ajax({
                 url: "http://localhost:8080/saveTrip",
                 type: "POST",
-                data: JSON.stringify({orginLocation:orginLocation,destinationLocation:destinationLocation, startTime:startTime,reachTime:reachTime,carNum:carNum,ticketPrice:ticketPrice,ticketNum:ticketNum}),
+                data: JSON.stringify({orginLocation:orginLocation,destinationLocation:destinationLocation, startTime:startTime,reachTime:reachTime,spanDays:spanDays,carNum:carNum,ticketPrice:ticketPrice,ticketNum:ticketNum}),
                 dataType:"json",
                 contentType:"application/json;charset=UTF-8",
                 success: function (result) {
@@ -215,14 +217,16 @@ $(function () {
             var destinationLocation=$(this).parent().parent().children("td").eq(3).text();
             var startTime=$(this).parent().parent().children("td").eq(4).text();
             var reachTime=$(this).parent().parent().children("td").eq(5).text();
-            var carNum=$(this).parent().parent().children("td").eq(6).text();
-            var ticketPrice=$(this).parent().parent().children("td").eq(7).text();
-            var ticketNum=$(this).parent().parent().children("td").eq(8).text();
+            var spanDays=$(this).parent().parent().children("td").eq(6).text();
+            var carNum=$(this).parent().parent().children("td").eq(7).text();
+            var ticketPrice=$(this).parent().parent().children("td").eq(8).text();
+            var ticketNum=$(this).parent().parent().children("td").eq(9).text();
 
             $("#orginLocation_revise_input").val(orginLocation);
             $("#destinationLocation_revise_input").val(destinationLocation);
             $("#startTime_revise_input").val(startTime);
             $("#reachTime_revise_input").val(reachTime);
+            $("#spanDays_revise_input").val(spanDays);
             $("#carNum_revise_input").val(carNum);
             $("#ticketPrice_revise_input").val(ticketPrice);
             $("#ticketNum_revise_input").val(ticketNum);
@@ -232,7 +236,6 @@ $(function () {
         });
         //2.为模态框中的修改按钮绑定事件，更新员工信息
         $("#trip_revise_btn").click(function () {
-
             //2.验证通过后发送ajax请求保存更新的员工数据
             //如果要直接发送PUT之类的请求
             //在WEB.xml配置HttpPutFormContentFilter过滤器即可
@@ -243,13 +246,15 @@ $(function () {
             var destinationLocation = $("#destinationLocation_revise_input").val();
             var startTime = $("#startTime_revise_input").val();
             var reachTime =$("#reachTime_revise_input").val();
+            var spanDays =$("#spanDays_revise_input").val();
             var carNum =$("#carNum_revise_input").val();
             var ticketPrice =$("#ticketPrice_revise_input").val();
             var ticketNum =$("#ticketNum_revise_input").val();
+
             $.ajax({
                 url:"http://localhost:8080/updateTripForAdmin",
                 type:"POST",
-                data:JSON.stringify({id:id,orginLocation:orginLocation,destinationLocation:destinationLocation,startTime:startTime,reachTime:reachTime,carNum:carNum,ticketPrice:ticketPrice,ticketNum:ticketNum}),
+                data:JSON.stringify({id:id,orginLocation:orginLocation,destinationLocation:destinationLocation,startTime:startTime,reachTime:reachTime,spanDays:spanDays,carNum:carNum,ticketPrice:ticketPrice,ticketNum:ticketNum}),
                 dataType:"json",
                 contentType:"application/json;charset=UTF-8",
                 success:function () {
@@ -295,7 +300,7 @@ $(function () {
     function lookTripVia() {
         $(document).on("click",".look_btn",function () {
             //1.得到车次号
-            var carNum=$(this).parents("tr").find("td:eq(6)").text();
+            var carNum=$(this).parents("tr").find("td:eq(7)").text();
             var storage=window.localStorage;
             storage.setItem("viaCarNum", carNum);
             window.location.href = "tripvialist.html";

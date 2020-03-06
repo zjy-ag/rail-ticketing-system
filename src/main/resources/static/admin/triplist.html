@@ -67,6 +67,7 @@
                                         <th>目的站</th>
                                         <th>出发时间</th>
                                         <th>到达时间</th>
+                                        <th>跨越天数</th>
                                         <th>车次号</th>
                                         <th>价格</th>
                                         <th>剩余票数</th>
@@ -125,14 +126,21 @@
                         <div class="form-group">
                             <label class="col-sm-2 control-label">发车时间</label>
                             <div class="col-sm-10">
-                                <input type="datetime-local" name="startTime" class="form-control" id="startTime_add_input" placeholder="发车时间">
+                                <input type="time" name="startTime" class="form-control" id="startTime_add_input" placeholder="发车时间">
                                 <span class="help-block"></span>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-2 control-label">发车时间</label>
+                            <label class="col-sm-2 control-label">到达时间</label>
                             <div class="col-sm-10">
-                                <input type="datetime-local" name="reachTime" class="form-control" id="reachTime_add_input" placeholder="发车时间">
+                                <input type="time" name="reachTime" class="form-control" id="reachTime_add_input" placeholder="到达时间">
+                                <span class="help-block"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">跨越天数</label>
+                            <div class="col-sm-10">
+                                <input type="number" name="spanDays" class="form-control" id="spanDays_add_input" placeholder="跨越天数">
                                 <span class="help-block"></span>
                             </div>
                         </div>
@@ -194,14 +202,21 @@
                         <div class="form-group">
                             <label class="col-sm-2 control-label">发车时间</label>
                             <div class="col-sm-10">
-                                <input type="text" name="startTime" class="form-control" id="startTime_revise_input" placeholder="发车时间">
+                                <input type="time" name="startTime" class="form-control" id="startTime_revise_input" placeholder="发车时间">
                                 <span class="help-block"></span>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-2 control-label">发车时间</label>
                             <div class="col-sm-10">
-                                <input type="text" name="reachTime" class="form-control" id="reachTime_revise_input" placeholder="发车时间">
+                                <input type="time" name="reachTime" class="form-control" id="reachTime_revise_input" placeholder="到达时间">
+                                <span class="help-block"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">跨越天数</label>
+                            <div class="col-sm-10">
+                                <input type="number" name="spanDays" class="form-control" id="spanDays_revise_input" placeholder="跨越天数">
                                 <span class="help-block"></span>
                             </div>
                         </div>

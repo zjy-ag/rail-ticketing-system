@@ -15,6 +15,12 @@ if (queryResult != ''){
     var showContent = '';
     $("#search_failure").hide();
     for (var i in queryResult){
+        var spanDays = queryResult[i].spanDays;
+        if (spanDays != 0){
+            spanDays = "+" + spanDays;
+        }else {
+            spanDays = "";
+        }
         showContent += '<div class="one_line">\n' +
             '    <div class="col-sm-12">\n' +
             '        <div class="col-sm-3">\n' +
@@ -22,14 +28,14 @@ if (queryResult != ''){
             '        </div>\n' +
             '        <div class="col-sm-3">\n' +
             '            <p style="padding: 10px">\n' +
-            '                <span style="font-size: xx-large">' + queryResult[i].startTime.substring(11, 16) + '</span>\n' +
+            '                <span style="font-size: xx-large">' + queryResult[i].startTime.substring(0, 5) + '</span>\n' +
             '                <br>\n' +
             '                ' + queryResult[i].orginLocation + '\n' +
             '            </p>\n' +
             '        </div>\n' +
             '        <div class="col-sm-3">\n' +
             '            <p style="padding: 10px">\n' +
-            '                <span style="font-size: xx-large">' + queryResult[i].reachTime.substring(11, 16) + '</span>\n' +
+            '                <span style="font-size: xx-large">' + queryResult[i].reachTime.substring(0, 5) + '</span><span id="spanDays-show" style="color: #f05050">' + spanDays + '</span>\n' +
             '                <br>\n' +
             '                ' + queryResult[i].destinationLocation + '\n' +
             '            </p>\n' +
@@ -50,6 +56,7 @@ if (queryResult != ''){
             '        </div>\n' +
             '    </div>\n' +
             '</div>';
+
     }
     $("#searchResult").text('');
     $("#searchResult").append(showContent);

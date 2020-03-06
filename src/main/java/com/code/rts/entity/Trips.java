@@ -14,10 +14,11 @@ public class Trips {
     private int id;
     private String orginLocation;
     private String destinationLocation;
-    @DateTimeFormat(pattern="yyyy-MM-dd hh:mm:ss")
+    @DateTimeFormat(pattern="hh:mm:ss")
     private String startTime;
-    @DateTimeFormat(pattern="yyyy-MM-dd hh:mm:ss")
+    @DateTimeFormat(pattern="hh:mm:ss")
     private String reachTime;
+    private String spanDays;
     private String carNum;
     private Double ticketPrice;
     private int ticketNum;
