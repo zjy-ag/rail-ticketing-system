@@ -31,5 +31,21 @@ public interface MessageDao {
     @Select("select * from message where to_user = #{toUser} order by is_read asc")
     List<Message> getReceiveMsg(Integer toUser);
 
+    /**
+     * 获取单个信息
+     * @param id
+     * @return
+     */
+    @Select("select * from message where id = #{id}")
+    Message getReceiveMsgDetail(Integer id);
+
+    /**
+     * 设置为已读
+     * @param id
+     * @return
+     */
+    @Select("update message set is_read = 1 where id = #{id}")
+    Integer setMsgStatus(Integer id);
+
 
 }

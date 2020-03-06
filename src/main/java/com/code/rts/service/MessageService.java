@@ -25,4 +25,13 @@ public class MessageService {
         return messageDao.getReceiveMsg(toUser);
     }
 
+    public Message getReceiveMsgDetail(Integer id){
+        return messageDao.getReceiveMsgDetail(id);
+    }
+
+    public Integer setMsgStatus(Integer id){
+        return messageDao.setMsgStatus(id);
+    }
+
+
 }

@@ -83,7 +83,56 @@ public class MessageController {
         return modelMap;
     }
 
+    /**
+     * 获取收到的单条消息
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "/getReceiveMsgDetail",method = RequestMethod.GET)
+    @ResponseBody
+    public Map<String, Object> getReceiveMsgDetail(@RequestParam Integer id){
+        Message message = messageService.getReceiveMsgDetail(id);
+        Map<String, Object> modelMap = new HashMap<>();
+        if (message != null){
+            modelMap.put("code", 200);
+            Map<String, Object> dataMap = new HashMap<>();
+            dataMap.put("message", "success");
+            dataMap.put("entity", message);
+            modelMap.put("data", dataMap);
+        }else {
+            modelMap.put("code", 200);
+            Map<String, Object> dataMap = new HashMap<>();
+            dataMap.put("message", "获取信息详情失败");
+            dataMap.put("entity", null);
+            modelMap.put("data", dataMap);
+        }
+        return modelMap;
+    }
 
-
+    /**
+     * 设置消息为已读
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "/setMsgStatus",method = RequestMethod.GET)
+    @ResponseBody
+    public Map<String, Object> setMsgStatus(@RequestParam Integer id){
+        Integer i = messageService.setMsgStatus(id);
+        Map<String, Object> modelMap = new HashMap<>();
+        if (i == 1){
+            modelMap.put("code", 200);
+            Map<String, Object> dataMap = new HashMap<>();
+            dataMap.put("message", "success");
+            dataMap.put("entity", i);
+            modelMap.put("data", dataMap);
+        }else {
+            modelMap.put("code", 200);
+            Map<String, Object> dataMap = new HashMap<>();
+            dataMap.put("message", "更新为已读失败");
+            dataMap.put("entity", null);
+            modelMap.put("data", dataMap);
+        }
+        return modelMap;
+    }
 
 }

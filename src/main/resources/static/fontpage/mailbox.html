@@ -139,27 +139,17 @@
                             <h5>文件夹</h5>
                             <ul class="folder-list m-b-md" style="padding: 0">
                                 <li>
-                                    <a href="mailbox.html"> <i class="fa fa-inbox "></i> 收件箱 <span class="label label-warning pull-right">16</span>
+                                    <a href="mailbox.html"> <i class="fa fa-inbox "></i> 收件箱 <span class="label label-warning pull-right" id="mail-num"></span>
                                     </a>
                                 </li>
                                 <li>
                                     <a href="mailbox.html"> <i class="fa fa-envelope-o"></i> 发信</a>
                                 </li>
-                                <li>
-                                    <a href="mailbox.html"> <i class="fa fa-certificate"></i> 重要</a>
-                                </li>
-                                <li>
-                                    <a href="mailbox.html"> <i class="fa fa-file-text-o"></i> 草稿 <span class="label label-danger pull-right">2</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="mailbox.html"> <i class="fa fa-trash-o"></i> 垃圾箱</a>
-                                </li>
                             </ul>
                             <h5>分类</h5>
                             <ul class="category-list" style="padding: 0">
                                 <li>
-                                    <a href="#"> <i class="fa fa-circle text-navy"></i> 工作</a>
+                                    <a href="#"> <i class="fa fa-circle text-navy"></i> 分享</a>
                                 </li>
                                 <li>
                                     <a href="#"> <i class="fa fa-circle text-danger"></i> 文档</a>
@@ -171,7 +161,7 @@
                                     <a href="#"> <i class="fa fa-circle text-info"></i> 广告</a>
                                 </li>
                                 <li>
-                                    <a href="#"> <i class="fa fa-circle text-warning"></i> 客户端</a>
+                                    <a href="#"> <i class="fa fa-circle text-warning"></i> 系统</a>
                                 </li>
                             </ul>
 
@@ -213,7 +203,7 @@
                         </div>
                     </form>
                     <h2>
-                        收件箱 (16)
+                        收件箱 (<span id="mail-num2"></span>)
                     </h2>
                     <div class="mail-tools tooltip-demo m-t-md">
                         <button class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="left" title="刷新邮件列表"><i class="fa fa-refresh"></i> 刷新</button>
@@ -223,7 +213,7 @@
 
                     <table class="table table-hover table-mail" id="mailbox-tb">
                         <tbody>
-                        
+
                         </tbody>
                     </table>
 
