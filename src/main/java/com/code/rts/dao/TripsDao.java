@@ -92,4 +92,11 @@ public interface TripsDao {
      * @return
      */
     int updateTripForAdmin(Trips trips);
+
+    /**
+     * 根据id删除车次
+     * @param id
+     * @return
+     */
+    Integer deleteTrip(Integer id);
 }

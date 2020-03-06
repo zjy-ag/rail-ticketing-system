@@ -162,4 +162,8 @@ public class TripsService {
         return tripsDao.updateTripForAdmin(trips);
     }
 
+    public int delTrip(Integer id){
+        return tripsDao.deleteTrip(id);
+    }
+
 }

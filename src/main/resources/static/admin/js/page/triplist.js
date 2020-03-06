@@ -8,6 +8,8 @@ $(function () {
     reviseTrip();
     //4.单个删除用户
     deleteTrip();
+    //5.查看途经站
+    lookTripVia();
 
     /**
      * 1.显示所用用户
@@ -261,9 +263,10 @@ $(function () {
     function deleteTrip() {
         $(document).on("click",".delete_btn",function () {
             //1.弹出确认删除对话框
-            var username=$(this).parents("tr").find("td:eq(2)").text();
+            var startDate=$(this).parents("tr").find("td:eq(4)").text().slice(0,10);
+            var carNum=$(this).parents("tr").find("td:eq(6)").text();
             var id=$(this).parents("tr").find("td:eq(1)").text();
-            if(confirm("确认删除用户："+username+"吗？")){
+            if(confirm("确认删除出发日期为：" + startDate + " 的车次："+carNum+"吗？")){
                 // alert(id);
                 //确认，发送ajax请求删除
                 $.ajax({
@@ -283,7 +286,7 @@ $(function () {
     /**
      * 5.查看途经站
      */
-    function deleteTrip() {
+    function lookTripVia() {
         $(document).on("click",".look_btn",function () {
             //1.得到车次号
             var carNum=$(this).parents("tr").find("td:eq(6)").text();

@@ -124,4 +124,38 @@ public class TripsController {
         return modelMap;
     }
 
+    /**
+     * 根据id删除车次
+     */
+    @Transactional
+    @RequestMapping(value = "/deleteTrip/{id}",method = RequestMethod.DELETE)
+    @ResponseBody
+    public Map<String, Object> deleteTrip(@PathVariable("id")Integer id){
+        Map<String, Object> modelMap = new HashMap<>();
+
+        try {
+            int i = tripsService.delTrip(id);
+            if (i == 1){
+                modelMap.put("code", 200);
+                Map<String, Object> dataMap = new HashMap<>();
+                dataMap.put("message", "success");
+                dataMap.put("entity", null);
+                modelMap.put("data", dataMap);
+            }else {
+                modelMap.put("code", 200);
+                Map<String, Object> dataMap = new HashMap<>();
+                dataMap.put("message", "删除失败");
+                dataMap.put("entity", null);
+                modelMap.put("data", dataMap);
+            }
+        }catch (Exception e){
+            modelMap.put("code", 500);
+            Map<String, Object> dataMap = new HashMap<>();
+            dataMap.put("message", "删除失败");
+            dataMap.put("entity", null);
+            modelMap.put("data", dataMap);
+        }
+        return modelMap;
+    }
+
 }

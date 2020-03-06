@@ -37,4 +37,9 @@
         </if>
         where id = #{id}
     </update>
+
+    <!--根据id删除用户-->
+    <delete id="deleteTrip" parameterType="Integer">
+      DELETE FROM `trips` WHERE id=#{id}
+    </delete>
 </mapper>

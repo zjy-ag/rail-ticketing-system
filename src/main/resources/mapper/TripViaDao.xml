@@ -11,7 +11,7 @@
         where id = #{id}
     </update>
 
-    <!--根据id删除用户-->
+    <!--根据id删除站点-->
     <delete id="deleteTripVia" parameterType="Integer">
       DELETE FROM `trips_via` WHERE id=#{id}
     </delete>
