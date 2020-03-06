@@ -14,6 +14,9 @@ public class LoginService {
     @Resource
     private UserDao userDao;
 
+    @Resource
+    private AdminDao adminDao;
+
 
     public Result loginIn(User userData) {
         Result result = new Result();
@@ -34,6 +37,28 @@ public class LoginService {
         result.setStateCode(200);
         result.setMsg("success");
         result.setData(user);
+        return result;
+    }
+
+    public Result loginAdminIn(Admin adminData) {
+        Result result = new Result();
+        Admin admin = adminDao.getAdminByUsername(adminData.getUsername());
+
+        if (admin == null){
+            result.setData(null);
+            result.setMsg("用户名/密码错误");
+            result.setStateCode(404);
+            return result;
+        }
+        if (!admin.getPassword().equals(admin.getPassword())){
+            result.setMsg("用户名/密码错误");
+            result.setStateCode(404);
+
+            return result;
+        }
+        result.setStateCode(200);
+        result.setMsg("success");
+        result.setData(admin);
         return result;
     }
 

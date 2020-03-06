@@ -2,6 +2,7 @@ package com.code.rts.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.code.rts.Result.Result;
+import com.code.rts.entity.Admin;
 import com.code.rts.entity.User;
 import com.code.rts.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,24 @@ public class LoginController {
         user.setPassword(password);
         user.setUsername(username);
         Result result = loginService.loginIn(user);
+        return result;
+    }
+
+    /**
+     * login
+     * @param jsonObject
+     * @return
+     */
+    @PostMapping("/loginAdmin")
+    @GetMapping("/loginAdmin")
+    @ResponseBody
+    public Result loginAdmin(@RequestBody JSONObject jsonObject){
+        Admin admin = new Admin();
+        String password = jsonObject.getString("password");
+        String username = jsonObject.getString("username");
+        admin.setPassword(password);
+        admin.setUsername(username);
+        Result result = loginService.loginAdminIn(admin);
         return result;
     }
 

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--对应接口，写入sql语句-->
+
+<mapper namespace="com.code.rts.dao.AdminDao">
+    <update id="updateAdminRegisterInfo" parameterType="com.code.rts.entity.Admin">
+        UPDATE `admin` set
+        <if test="password != null and password != ''">
+            password = #{password}
+        </if>
+        where username = #{username}
+
+    </update>
+
+    <select id="getAdminsCount" resultType="Integer">
+        SELECT COUNT(1)
+        FROM `admin`
+    </select>
+
+
+    <select id="getAllAdmins" resultType="com.code.rts.entity.Admin"  parameterType="com.github.pagehelper.Page">
+        SELECT id, username
+        FROM `admin`
+    </select>
+
+    <!--根据id删除用户-->
+    <delete id="deleteAdmin" parameterType="Integer">
+      DELETE FROM `admin` WHERE id=#{id}
+    </delete>
+
+</mapper>
