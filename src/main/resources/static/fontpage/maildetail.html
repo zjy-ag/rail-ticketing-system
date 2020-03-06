@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>高铁售票系统</title>
+    <link rel="stylesheet" href="../css/plugins/bootstrap.min.css">
+    <link href="../css/plugins/animate.css" rel="stylesheet">
+    <link href="../css/plugins/style.css?v=4.1.0" rel="stylesheet">
+    <script src="../js/jquery.js"></script>
+    <script src="../js/plugins/bootstrap.min.js"></script>
+
+</head>
+<body style="background-color: #f1f1f1">
+<nav class="nav navbar-inverse">
+    <div class="container-fluid">
+        <!-- Header -->
+        <div class="navbar-header">
+            <a class="navbar-brand" href="index.html">高铁购票系统</a>
+        </div>
+        <!-- Items -->
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                <a href="index.html">
+                    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>&nbsp; 购票
+                </a>
+            </li>
+            <li id="welcomeText">
+                <a href="#">欢迎您 <span id="user"></span></a>
+            </li>
+            <li id="userBtn">
+                <a href="perInfo.html">
+                    <span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp; 个人中心
+                </a>
+            </li>
+            <li id="orderBtn">
+                <a href="orderlist.html">
+                    <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>&nbsp; 我的订单
+                </a>
+            </li>
+            <li id="logoutBtn">
+                <a href="javascript:void(0)" onclick="returnIndex()">
+                    <span class="glyphicon glyphicon-off" aria-hidden="true"></span>&nbsp; 退出
+                </a>
+            </li>
+            <li id="loginBtn">
+                <a href="login.html">
+                    <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>&nbsp; 登录
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+
+<style>
+
+    .main {
+        margin-left: 50px;
+        margin-right: 50px;
+    }
+
+    .search_form {
+        background-color: white;
+        margin-top: 25px;
+        height: 90px;
+    }
+
+    .search_head {
+        background-color: #f1f1f1;
+        margin-top: 10px;
+        height: 30px;
+        text-align: center;
+        font-weight: bold;
+    }
+
+    .search_result_by_ltime { /*背景色与网页背景色相同*/
+        background-color: #f1f1f1;
+        margin-top: 10px;
+    }
+
+    .search_result_by_price { /*背景色与网页背景色相同*/
+        background-color: #f1f1f1;
+        margin-top: 10px;
+    }
+
+    .one_line {
+        background-color: white;
+        height: 90px;
+        margin-top: 10px;
+        text-align: center;
+    }
+
+    .ico_search_type {
+        display: inline-block; /*同行显示*/
+        width: 20px;
+        height: 20px;
+        background: url('http://pic.c-ctrip.com/flight/searchlist/icon_search_select.png') no-repeat;
+    }
+
+    .ico_search_lcity {
+        background-position: 0 0;
+    }
+
+    .ico_search_acity {
+        background-position: 0 -20px;
+    }
+
+    .ico_search_ldate {
+        background-position: 0 -40px;
+    }
+
+    .my_input {
+        position: absolute;
+        width: 80%;
+    }
+
+    .btn-warning {
+        background-color: #ffb000;
+    }
+
+    .flight_name {
+        line-height: 90px;
+        font-size: x-large;
+        font-weight: bold;
+    }
+
+
+</style>
+
+<div class="main">
+    <div class="wrapper wrapper-content">
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-content mailbox-content">
+                        <div class="file-manager">
+                            <a class="btn btn-block btn-primary compose-mail" href="#">写信</a>
+                            <div class="space-25"></div>
+                            <h5>文件夹</h5>
+                            <ul class="folder-list m-b-md" style="padding: 0">
+                                <li>
+                                    <a href="mailbox.html"> <i class="fa fa-inbox "></i> 收件箱 <span class="label label-warning pull-right">16</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="mailbox.html"> <i class="fa fa-envelope-o"></i> 发信</a>
+                                </li>
+                                <li>
+                                    <a href="mailbox.html"> <i class="fa fa-certificate"></i> 重要</a>
+                                </li>
+                                <li>
+                                    <a href="mailbox.html"> <i class="fa fa-file-text-o"></i> 草稿 <span class="label label-danger pull-right">2</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="mailbox.html"> <i class="fa fa-trash-o"></i> 垃圾箱</a>
+                                </li>
+                            </ul>
+                            <h5>分类</h5>
+                            <ul class="category-list" style="padding: 0">
+                                <li>
+                                    <a href="#"> <i class="fa fa-circle text-navy"></i> 工作</a>
+                                </li>
+                                <li>
+                                    <a href="#"> <i class="fa fa-circle text-danger"></i> 文档</a>
+                                </li>
+                                <li>
+                                    <a href="#"> <i class="fa fa-circle text-primary"></i> 社交</a>
+                                </li>
+                                <li>
+                                    <a href="#"> <i class="fa fa-circle text-info"></i> 广告</a>
+                                </li>
+                                <li>
+                                    <a href="#"> <i class="fa fa-circle text-warning"></i> 客户端</a>
+                                </li>
+                            </ul>
+
+                            <h5 class="tag-title">标签</h5>
+                            <ul class="tag-list" style="padding: 0">
+                                <li><a href="#"><i class="fa fa-tag"></i> 朋友</a>
+                                </li>
+                                <li><a href="#"><i class="fa fa-tag"></i> 工作</a>
+                                </li>
+                                <li><a href="#"><i class="fa fa-tag"></i> 家庭</a>
+                                </li>
+                                <li><a href="#"><i class="fa fa-tag"></i> 孩子</a>
+                                </li>
+                                <li><a href="#"><i class="fa fa-tag"></i> 假期</a>
+                                </li>
+                                <li><a href="#"><i class="fa fa-tag"></i> 音乐</a>
+                                </li>
+                                <li><a href="#"><i class="fa fa-tag"></i> 照片</a>
+                                </li>
+                                <li><a href="#"><i class="fa fa-tag"></i> 电影</a>
+                                </li>
+                            </ul>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-9 animated fadeInRight">
+                <div class="mail-box-header">
+                    <div class="pull-right tooltip-demo">
+                        <a href="#" class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="回复"><i class="fa fa-reply"></i> 回复</a>
+                    </div>
+                    <h2>
+                        查看邮件
+                    </h2>
+                    <div class="mail-tools tooltip-demo m-t-md">
+
+
+                        <h3>
+                            <span class="font-noraml">主题： </span>幼儿园亲子班（园中园）项目方案
+                        </h3>
+                        <h5>
+                            <span class="pull-right font-noraml">2014年10月28日(星期二) 晚上8:20</span>
+                            <span class="font-noraml">发件人： </span>497915773@qq.com
+                        </h5>
+                    </div>
+                </div>
+                <div class="mail-box">
+
+
+                    <div class="mail-body">
+                        <h4>尊敬的幼儿园园长朋友：</h4>
+                        <p>
+                            贝贝聪教育，因您而精彩！由于婴幼教育一体化更符合婴幼儿成长需求，是全球早教专家、心理学家普遍推崇的一种办园模式。在美国、日本、英国、意大利、新加坡等国家及我国香港、台湾等地区，幼儿园普遍开设了亲子班，美国幼儿园开亲子班的比率为87%，意大利比率为83%。香港、台湾地区分别为74%、76%。2003年3月4日，国务院办公厅转发了教育部等10部门（单位）《关于幼儿教育改革与发展的指导意见》，强调发展0－6岁婴幼儿教育。在《幼儿园教育指导纲要（试行）》中已明确指出幼儿园教育要与0-3岁教育做好衔接。北京、上海等地要求在2013年，65%的公立一级幼儿园开设亲子班或园中园。
+                        </p>
+
+                        <p class="text-right">
+                            贝贝聪教育科技发展有限公司
+                        </p>
+                    </div>
+
+                    <div class="mail-body text-right tooltip-demo">
+                        <a class="btn btn-sm btn-white" href="#"><i class="fa fa-reply"></i> 回复</a>
+                        <a class="btn btn-sm btn-white" href="#"><i class="fa fa-arrow-right"></i> 下一封</a>
+                        <button title="" data-placement="top" data-toggle="tooltip" type="button" data-original-title="打印这封邮件" class="btn btn-sm btn-white"><i class="fa fa-print"></i> 打印</button>
+                        <button title="" data-placement="top" data-toggle="tooltip" data-original-title="删除邮件" class="btn btn-sm btn-white"><i class="fa fa-trash-o"></i> 删除</button>
+                    </div>
+                    <div class="clearfix"></div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script src="../js/plugins/bootstrap.min.js"></script>
+<script src="../js/plugins/slick.min.js"></script>
+<script src="../js/plugins/jquery.form.js"></script>
+<script src="../js/plugins/jquery.validate.min.js"></script>
+<script src="../js/custom.js"></script>
+<script src="../js/page/share.js"></script>
+<script language="JavaScript">
+    fillerIn();
+</script>
+
+
+
+</body>
+</html>

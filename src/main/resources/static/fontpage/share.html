@@ -37,6 +37,11 @@
                     <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>&nbsp; 我的订单
                 </a>
             </li>
+            <li id="mailboxBtn">
+                <a href="mailbox.html">
+                    <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>&nbsp; 我的信箱
+                </a>
+            </li>
             <li id="logoutBtn">
                 <a href="javascript:void(0)" onclick="returnIndex()">
                     <span class="glyphicon glyphicon-off" aria-hidden="true"></span>&nbsp; 退出
@@ -129,53 +134,98 @@
 
 <div class="main">
     <!--搜索框-->
-    <div class="search_form">
-        <div class="col-sm-12" style="margin-top: 20px">
-            <form id="queryform" class="form-horizontal" role="form">
-                <div class="col-sm-3">
-                    <span class="ico_search_type ico_search_lcity"></span><br>
-                    <input class="my_input" type="text" id="source" name="leave_city" placeholder="出发站"
-                           value="">
+    <div class="search-form">
+        <form action="index.html" method="get">
+            <div class="input-group">
+                <input type="text" placeholder="请输入好友的ID / 姓名..." name="search" class="form-control input-lg">
+                <div class="input-group-btn">
+                    <button class="btn btn-lg btn-primary" type="submit">
+                        搜索好友
+                    </button>
                 </div>
-                <div class="col-sm-3">
-                    <span class="ico_search_type ico_search_acity"></span><br>
-                    <input class="my_input" type="text" id="target" name="arrive_city" placeholder="到达站"
-                           value="">
+            </div>
+
+        </form>
+    </div>
+
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row" id="friends-card">
+            <div class="col-sm-3">
+                <div class="contact-box">
+                    <div class="col-sm-12"><a href="profile.html">
+                    <h3><strong>奔波儿灞</strong></h3>
+                    <p><i class="fa fa-map-marker"></i> 甘肃·兰州</p>
+                </a><address><a href="profile.html">
+                    <strong>Baidu, Inc.</strong><br>
+                    E-mail:xxx@baidu.com<br>
+                    Weibo:</a><a href="">http://weibo.com/xxx</a><br>
+                    <abbr title="Phone">Tel:</abbr> (123) 456-7890
+                </address>
                 </div>
-                <div class="col-sm-3">
-                    <span class="ico_search_type ico_search_ldate"></span><br>
-                    <input class="my_input" type="date" id="date" name="leave_date" placeholder="日期"
-                           value="">
-                </div>
-                <div class="col-sm-3">
-                    <div style="position: absolute;margin-top: 10px;margin-left: 35%">
-                        <button class="btn btn btn-info" type="submit" value="">重新搜索</button>
+                    <div class="user-button">
+                        <div class="row">
+                            <div class="col-sm-6">
+                            </div>
+                            <div class="col-sm-6">
+                                <button type="button" class="btn btn-primary btn-sm btn-block"><i class="fa fa-envelope"></i> 发送消息</button>
+                            </div>
+                        </div>
                     </div>
+                    <div class="clearfix"></div>
                 </div>
-            </form>
+
+            </div>
+            <div class="col-sm-3">
+                <div class="contact-box">
+                   <div class="col-sm-12"><a href="profile.html">
+                    <h3><strong>灞波儿奔</strong></h3>
+                    <p><i class="fa fa-map-marker"></i> 四川·成都</p>
+                </a><address><a href="profile.html">
+                    <strong>Taobao, Inc.</strong><br>
+                    E-mail:xxx@taobao.com<br>
+                    Weibo:</a><a href="">http://weibo.com/xxx</a><br>
+                    <abbr title="Phone">Tel:</abbr> (123) 456-7890
+                </address>
+                </div>
+                    <div class="clearfix"></div>
+
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="contact-box">
+                   <div class="col-sm-12"><a href="profile.html">
+                    <h3><strong>Monica Smith</strong></h3>
+                    <p><i class="fa fa-map-marker"></i> 上海市闵行区绿地科技岛广场A座2606室</p>
+                </a><address><a href="profile.html">
+                    <strong>Baidu, Inc.</strong><br>
+                    E-mail:xxx@baidu.com<br>
+                    Weibo:</a><a href="">http://weibo.com/xxx</a><br>
+                    <abbr title="Phone">Tel:</abbr> (123) 456-7890
+                </address>
+                </div>
+                    <div class="clearfix"></div>
+
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="contact-box">
+                   <div class="col-sm-12"><a href="profile.html">
+                    <h3><strong>Michael Zimber</strong></h3>
+                    <p><i class="fa fa-map-marker"></i> 上海市闵行区绿地科技岛广场A座2606室</p>
+                </a><address><a href="profile.html">
+                    <strong>Baidu, Inc.</strong><br>
+                    E-mail:xxx@baidu.com<br>
+                    Weibo:</a><a href="">http://weibo.com/xxx</a><br>
+                    <abbr title="Phone">Tel:</abbr> (123) 456-7890
+                </address>
+                </div>
+                    <div class="clearfix"></div>
+
+                </div>
+            </div>
+
         </div>
     </div>
-
-    <!--标题行(标明4种排序方式)-->
-    <div class="search_head" id="search_head">
-        <div class="col-sm-12">
-            <button class="col-sm-3 btn btn-primary">车次信息</button>
-            <button class="col-sm-3 btn btn-success" onclick="search_by_ltime()">出发信息</button>
-            <button class="col-sm-3 btn btn-danger" onclick="search_by_atime()">到达信息</button>
-            <button class="col-sm-3 btn btn-warning" onclick="search_by_price()">价格</button>
-        </div>
-    </div>
-
-    <!--如果没有查找到-->
-    <div class="alert" id="search_failure" style="margin-top: 20px; background-color:white;">
-        <h1 id="test">尊敬的旅客</h1>
-        <p style="margin-left: 50px">
-            很抱歉，我们目前没有开通这趟车次，请尝试选择其他车次，祝您旅途愉快！
-        </p>
-    </div>
-
-    <!--显示结果-->
-    <div class="search_result" id="searchResult"></div>
 
 </div>
 <!--显示车次途经站的模态框 -->
@@ -218,7 +268,7 @@
 <script src="../js/plugins/jquery.form.js"></script>
 <script src="../js/plugins/jquery.validate.min.js"></script>
 <script src="../js/custom.js"></script>
-<script src="../js/page/result.js"></script>
+<script src="../js/page/share.js"></script>
 <script language="JavaScript">
     fillerIn();
 </script>

@@ -1,23 +1,25 @@
+$(function () {
     var totalRecord,currentPage,totalPage;
     //1.显示所有数据
     to_page(1);
 
+
     /**
-     * 1.显示所用订单
+     * 1.显示所用用户
      * @param pn
      */
     function to_page(pn) {
-        var username = window.localStorage.getItem("username");
+
         $.ajax({
-            url: "http://localhost:8080/getorder",
-            data: "username=" + username + "&pn=" + pn,
+            url: "http://localhost:8080/getallusers",
+            data:"pn="+pn,
             type: "GET",
             dataType: "json",
-            contentType: "application/json;charset=UTF-8",
+            contentType:"application/json;charset=UTF-8",
             success: function (result) {
                 //alert(result.msg);
                 //解析并显示员工数据表
-                build_orders_table(result)
+                build_users_table(result)
 
                 //2.解析并显示分页信息
                 build_page_info(result);
@@ -32,33 +34,38 @@
      * 解析并显示员工数据表
      * @param data
      */
-    function build_orders_table(result) {
+    function build_users_table(result) {
         //清空table表格
-        $("#orders_table tbody").empty();
-        var orders = result.data.list;
+        $("#friends-card").empty();
+        var users = result.data.list;
+
         //遍历元素
-        $.each(orders, function (index, item) {
-            //var id = $("<td></td>").append(item.id);
-            var carNum = $("<td></td>").append(item.carNum);
-            var orginLocation = $("<td></td>").append(item.orginLocation);
-            var destinationLocation = $("<td></td>").append(item.destinationLocation);
-            var startTime = $("<td></td>").append(item.startTime);
-            var reachTime = $("<td></td>").append(item.reachTime);
-            var status = "<button class='btn-danger'>订单无效</button>";
-            if (item.status == 1){
-                status = "<button class='btn-warning' onclick='gotopay("+ item.id + ")'>等待支付</button>";
-            }else if (item.status == 2){
-                status = "<button class='btn-success'>已支付</button>";
-            }else if (item.status == 3){
-                status = "<button class='btn-default'>已退票</button>";
-            }
-            var status = $("<td></td>").append(status);
-            var ticketPrice = $("<td></td>").append(item.ticketPrice);
-            var button1 = $("<button></button>").addClass("btn btn-sm btn-danger").attr("onclick", "refund(" +item.id + ")").append("退票");
-            var button2 = $("<button></button>").addClass("btn btn-sm btn-primary").attr("onclick", "share('" +item.carNum + "')").append("分享");
-            var td_btn = $("<td></td>").append(button1).append(button2);
-            $("<tr></tr>").append(carNum).append(orginLocation).append(destinationLocation).append(startTime).append(reachTime).append(ticketPrice).append(status)
-                .append(td_btn).appendTo("#orders_table tbody");
+        $.each(users, function (index, item) {
+            var content = '<div class="col-sm-3">\n' +
+                '                <div class="contact-box">\n' +
+                '                    <div class="col-sm-12">\n' +
+                '                    <h3><strong>'+ item.username +'</strong></h3>\n' +
+                '                    <p><i class="fa fa-map-marker"></i>真实姓名：'+ item.trueName +'</p>\n' +
+                '                <address>年龄：'+ item.age +'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;性别：'+ item.sex +'<br>\n' +
+                '                    身份证号码：'+ item.idCardNum +'<br>\n' +
+                '                    电话号码：'+ item.phoneNum +'\n' +
+                '                </address>\n' +
+                '                </div>\n' +
+                '                    <div class="user-button">\n' +
+                '                        <div class="row">\n' +
+                '                            <div class="col-sm-6">\n' +
+                '                            </div>\n' +
+                '                            <div class="col-sm-6">\n' +
+                '                                <button type="button" class="btn btn-primary btn-sm btn-block" onclick="shareTo(' + item.username + ')"><i class="fa fa-envelope"></i> 发送消息</button>\n' +
+                '                            </div>\n' +
+                '                        </div>\n' +
+                '                    </div>\n' +
+                '                    <div class="clearfix"></div>\n' +
+                '                </div>\n' +
+                '\n' +
+                '            </div>'
+
+            $("<div></div>").append(content).appendTo("#friends-card");
 
         })
     }
@@ -136,52 +143,30 @@
 
 
 
-    /**
-     * 退票
-     * @param id
-     */
-    function refund(id) {
-        var choice = confirm("尊敬的顾客，您确定要退票吗");
-        if (choice == true) {
-            var id = id;
-            var status = 3;
-            $.ajax({
-                url:"http://localhost:8080/updateorder",
-                type:"POST",
-                data:JSON.stringify({id:id,status:status}),
-                dataType:"json",
-                contentType:"application/json;charset=UTF-8",
-                success:function () {
-                    //1.关闭modal框
-                    $("#orderReviseModal").modal('hide');
-                    //2.来到当前页，显示刚才保存的数据
-                    to_page(currentPage);
-
-                }
-            })
-        }
-    }
-
-    /**
-     * 分享车次
-     * @param carNum
-     */
-    function share(carNum) {
-        var choice = confirm("尊敬的顾客，您要分享车次：" + carNum + " 给朋友吗？");
-        if (choice == true) {
-            window.localStorage.setItem("shareCarNum", carNum);
-            window.location.href = "share.html";
-        }
-    }
+});
 
 /**
- * 订单页转支付页面
- * @param id
+ * 发送分享信息给好友
  */
-function gotopay(id) {
-    window.localStorage.setItem("curOrderId", id)
-    if (confirm("现在去支付？")){
-        window.location.href = "pay.html";
-    };
-}
+function shareTo(toUserId){
+    //获取基本信息
+    var storage = window.localStorage;
+    var fromUserId = storage.getItem("username");
+    var carNum = storage.getItem("shareCarNum");
+    var content = '赶快来看看这趟车吧~ 点击立即搜索：<a href="www.baidu.com">' + carNum + '</a>';
 
+    $.ajax({
+        url:"http://localhost:8080/sendMessage",
+        type:"POST",
+        data:JSON.stringify({fromUser:fromUserId,toUser:toUserId,content:content}),
+        dataType:"json",
+        contentType:"application/json;charset=UTF-8",
+        success:function () {
+            alert("发送成功！");
+        },
+        error:function () {
+            alert("发送失败！");
+        }
+    })
+
+}
