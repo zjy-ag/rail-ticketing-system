@@ -1,12 +1,3 @@
-var username = window.localStorage.getItem("username");
-if (username){
-    $('#user').text(username);
-    $("#loginBtn").hide();
-}else {
-    $("#welcomeText").hide();
-    $("#userBtn").hide();
-    $("#logoutBtn").hide();
-}
 
 
 var queryResult = localStorage.getItem("queryResult")
