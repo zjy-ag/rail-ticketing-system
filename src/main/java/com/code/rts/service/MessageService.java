@@ -34,4 +34,16 @@ public class MessageService {
     }
 
 
+    public Page<Message> getAllMsg(){
+        return messageDao.getAllMsgs();
+    }
+
+    public Integer updateMsg(Message message){
+        return messageDao.updateMsg(message);
+    }
+
+    public Integer deleteMsg(Integer id){
+        return messageDao.deleteMsg(id);
+    }
+
 }

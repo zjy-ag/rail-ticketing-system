@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--对应接口，写入sql语句-->
+
+<mapper namespace="com.code.rts.dao.MessageDao">
+
+
+    <select id="getAllMsgs" resultType="com.code.rts.entity.Message"  parameterType="com.github.pagehelper.Page">
+        SELECT *
+        FROM `message`
+    </select>
+
+    <!--根据id删除消息-->
+    <delete id="deleteMsg" parameterType="Integer">
+      DELETE FROM `message` WHERE id=#{id}
+    </delete>
+
+    <update id="updateMsg" parameterType="com.code.rts.entity.Message">
+        UPDATE  message SET
+        <if test="fromUser != null and fromUser != ''">
+            from_user = #{fromUser}
+        </if>
+        <if test="toUser != null and toUser != ''">
+            ,to_user = #{toUser}
+        </if>
+        <if test="content != null and content != ''">
+            ,content = #{content}
+        </if>
+        <if test="sendTime != null and sendTime != ''">
+            ,send_time = #{sendTime}
+        </if>
+        where id = #{id}
+    </update>
+
+</mapper>

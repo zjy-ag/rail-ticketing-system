@@ -47,5 +47,24 @@ public interface MessageDao {
     @Select("update message set is_read = 1 where id = #{id}")
     Integer setMsgStatus(Integer id);
 
+    /**
+     * 查询所有消息
+     * @return
+     */
+    Page<Message> getAllMsgs();
+
+    /**
+     * 根据id删除消息
+     * @param id
+     * @return
+     */
+    Integer deleteMsg(Integer id);
+
+    /**
+     * 更新信息
+     * @param message
+     * @return
+     */
+    Integer updateMsg(Message message);
 
 }
