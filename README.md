@@ -113,19 +113,19 @@ jdbc.password=填写你的数据库密码
 
 ### 5.运行项目
 
-![image-20200312135130422](C:\Zone\Dev\IdeaProjects\rail-ticketing-system\README.assets\image-20200312135130422.png)
+![](https://gitee.com/blankjee/pic-bed/raw/master/images/20200520182609.png)
 
 ### 6.项目访问
 
 1. 前台进入方式
 
-   ![image-20200312135254317](C:\Zone\Dev\IdeaProjects\rail-ticketing-system\README.assets\image-20200312135254317.png)
+   ![](https://gitee.com/blankjee/pic-bed/raw/master/images/20200520191120.png)
 
    测试账号：1 密码：1
 
 2. 后台进入方式
 
-   ![image-20200312135408937](C:\Zone\Dev\IdeaProjects\rail-ticketing-system\README.assets\image-20200312135408937.png)
+   ![](https://gitee.com/blankjee/pic-bed/raw/master/images/20200520191145.png)
 
    admin 123456
 
